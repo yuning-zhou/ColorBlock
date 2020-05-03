@@ -15,6 +15,7 @@
 		133C5B64245F7BE4008E4D2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 133C5B62245F7BE4008E4D2D /* LaunchScreen.storyboard */; };
 		133C5B6F245F7BE4008E4D2D /* ColorBlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5B6E245F7BE4008E4D2D /* ColorBlockTests.swift */; };
 		133C5B7A245F7BE4008E4D2D /* ColorBlockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5B79245F7BE4008E4D2D /* ColorBlockUITests.swift */; };
+		133C5B88245F7E84008E4D2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5B87245F7E84008E4D2D /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		133C5B75245F7BE4008E4D2D /* ColorBlockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorBlockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		133C5B79245F7BE4008E4D2D /* ColorBlockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlockUITests.swift; sourceTree = "<group>"; };
 		133C5B7B245F7BE4008E4D2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		133C5B87245F7E84008E4D2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				133C5B59245F7BE1008E4D2D /* GameScene.swift */,
 				133C5B5B245F7BE1008E4D2D /* GameViewController.swift */,
 				133C5B5D245F7BE1008E4D2D /* Main.storyboard */,
+				133C5B87245F7E84008E4D2D /* ViewController.swift */,
 				133C5B60245F7BE4008E4D2D /* Assets.xcassets */,
 				133C5B62245F7BE4008E4D2D /* LaunchScreen.storyboard */,
 				133C5B65245F7BE4008E4D2D /* Info.plist */,
@@ -261,6 +264,7 @@
 			files = (
 				133C5B5A245F7BE1008E4D2D /* GameScene.swift in Sources */,
 				133C5B5C245F7BE1008E4D2D /* GameViewController.swift in Sources */,
+				133C5B88245F7E84008E4D2D /* ViewController.swift in Sources */,
 				133C5B54245F7BE1008E4D2D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

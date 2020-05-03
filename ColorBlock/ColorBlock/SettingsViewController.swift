@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SettingsViewController.swift
 //  ColorBlock
 //
 //  Created by Zhou Yuning on 5/3/20.
@@ -8,13 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
-    @IBAction func unwindToViewController(segue: UIStoryboardSegue){
-        
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  ColorBlock
 //
 //  Created by Zhou Yuning on 5/3/20.
@@ -8,12 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
-    @IBAction func unwindToViewController(segue: UIStoryboardSegue){
+    @IBAction func unwindToMainViewController(segue: UIStoryboardSegue){
         
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

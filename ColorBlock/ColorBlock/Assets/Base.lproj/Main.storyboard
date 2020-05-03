@@ -35,6 +35,90 @@
             </objects>
             <point key="canvasLocation" x="1398.5507246376812" y="77.678571428571431"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="8KJ-iL-v8L">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="hFA-cU-hLc" customClass="SettingsViewController" customModule="ColorBlock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HAi-Ls-m9p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foI-Wq-DJC">
+                                <rect key="frame" x="20" y="44" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="Xui-7o-0cP" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="Jjg-K3-TWf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="2kz-AI-2bg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xdB-75-MEs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JeB-Pc-RS4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Xui-7o-0cP" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1399" y="747"/>
+        </scene>
+        <!--Achievements View Controller-->
+        <scene sceneID="ne6-X2-UJy">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="ig6-jl-XMQ" customClass="AchievementsViewController" customModule="ColorBlock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w3O-7C-fpp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0U-X3-tZV">
+                                <rect key="frame" x="20" y="44" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="W0y-HN-CRX" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="EVh-v9-rw1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AJ3-Su-JYo"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ae3-kq-xX3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8UP-hG-P3B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="W0y-HN-CRX" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2060" y="747"/>
+        </scene>
+        <!--Score View Controller-->
+        <scene sceneID="sxw-cn-UNL">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="4fp-bx-m9e" customClass="ScoreViewController" customModule="ColorBlock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KcT-iv-Mko">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KR4-Ug-u8e">
+                                <rect key="frame" x="20" y="44" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="3pt-gC-EbA" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="1Sf-G9-Lzq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="CpK-Un-E0m"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4yB-DY-Ff1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9JP-Hh-cTz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="3pt-gC-EbA" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2052" y="78"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="7Dr-MJ-hHV">
             <objects>
@@ -59,6 +143,9 @@
                                 <state key="normal" title="High Score">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="4fp-bx-m9e" kind="show" id="XC7-xK-Q94"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqg-sh-LGx">
                                 <rect key="frame" x="115" y="446" width="184" height="54"/>
@@ -80,6 +167,9 @@
                                 <state key="normal" title="Settings">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="hFA-cU-hLc" kind="show" id="hIp-O5-I9p"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSR-UH-qC4">
                                 <rect key="frame" x="109" y="617" width="196" height="54"/>
@@ -89,6 +179,9 @@
                                 <state key="normal" title="Achievements">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="ig6-jl-XMQ" kind="show" id="nJ3-I9-FpF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

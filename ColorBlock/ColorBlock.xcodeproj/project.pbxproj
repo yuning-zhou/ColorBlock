@@ -107,6 +107,7 @@
 		133C5B52245F7BE1008E4D2D /* ColorBlock */ = {
 			isa = PBXGroup;
 			children = (
+				133C5B65245F7BE4008E4D2D /* Info.plist */,
 				133C5BD1245F86F9008E4D2D /* App */,
 				133C5BD0245F86E1008E4D2D /* Assets */,
 				133C5BCF245F86A8008E4D2D /* View Controller */,
@@ -159,7 +160,6 @@
 			children = (
 				133C5B53245F7BE1008E4D2D /* AppDelegate.swift */,
 				133C5B59245F7BE1008E4D2D /* GameScene.swift */,
-				133C5B65245F7BE4008E4D2D /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";

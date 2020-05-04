@@ -59,7 +59,7 @@ class GameScene: SKScene {
         
         block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7, height: self.frame.size.width/7))
         block.colorBlendFactor = 1.0
-        //block.name = "block"
+        block.name = "block"
         
         //block.color = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
         
@@ -76,6 +76,8 @@ class GameScene: SKScene {
      
         block.physicsBody?.friction = 0.0
         block.physicsBody?.restitution = 0.0
+        //block.physicsBody?.usesPreciseCollisionDetection = true
+        
         //block.physicsBody?.velocity = CGVector(dx: 0, dy: -3)
         
         
@@ -104,15 +106,31 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if (block.position.y - frame.minY <= block.size.height){
-            print("iowuwe")
+        // bottom || on top of other blocks
+        
+    
+        let blockBottom = CGPoint(x: block.frame.origin.x + block.frame.width/2, y: block.frame.origin.y)
+        
+        let xDist = (contact.contactPoint.x - blockBottom.x)
+        let yDist = (contact.contactPoint.y - blockBottom.y)
+        let test = CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
+        
+        if (test < block.size.width/2){
+            block.physicsBody?.pinned = true
             self.spawnBlocks()
-        } else {
-            
         }
         
+        /*
+        if (block.position.y  - block.size.height/2 == frame.minY){
+            block.physicsBody?.pinned = true
+            self.spawnBlocks()
+        }
+        print(block.position.y - block.size.height/2)
+        print(frame.minY)
+        //block.position.y - frame.minY <= block.size.height
         
         
         //self.spawnBlocks()
+        */
     }
 }

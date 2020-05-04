@@ -19,6 +19,7 @@ class GameScene: SKScene {
         static let colors = [
             UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
             UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
         ]
     }
@@ -64,15 +65,21 @@ class GameScene: SKScene {
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 3)
-        
+        let blockColor = Int.random(in: 0 ..< 4)
         let factor = CGFloat(7)
-        block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+        if blockColor == 3 {
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block.name = "verticalRainbow"
+        } else {
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block.name = "block"
+            
+        }
         block.colorBlendFactor = 1.0
-        block.name = "block"
         let storeInfo = NSMutableDictionary()
         storeInfo["color"] = blockColor
         block.userData = storeInfo
+        
         
         
         // randomize x-position of spawn
@@ -161,27 +168,33 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     func checkVertical() -> Bool{
         let current = matrix[column - 1]
-        if (current.count >= 3){
-            // valid for a check
-            let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
-            let color2 = current[current.count - 2]?.userData?.value(forKey: "color")
-            let color3 = current[current.count - 3]?.userData?.value(forKey: "color")
-            
-            
-            if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
-                // remove blocks
-                current[current.count - 3]?.removeFromParent()
-                matrix[column - 1].remove(at: matrix[column - 1].count - 3)
-                
-                current[current.count - 2]?.removeFromParent()
-                matrix[column - 1].remove(at: matrix[column - 1].count - 2)
-                
-                current[current.count - 1]?.removeFromParent()
-                matrix[column - 1].remove(at: matrix[column - 1].count - 1)
-            }
+        
+        if (block.name == "verticalRainbow"){
+            print("asasas")
             return true
         } else {
-            return false
+            if (current.count >= 3){
+                // valid for a check
+                let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
+                let color2 = current[current.count - 2]?.userData?.value(forKey: "color")
+                let color3 = current[current.count - 3]?.userData?.value(forKey: "color")
+                
+                
+                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
+                    // remove blocks
+                    current[current.count - 3]?.removeFromParent()
+                    matrix[column - 1].remove(at: matrix[column - 1].count - 3)
+                    
+                    current[current.count - 2]?.removeFromParent()
+                    matrix[column - 1].remove(at: matrix[column - 1].count - 2)
+                    
+                    current[current.count - 1]?.removeFromParent()
+                    matrix[column - 1].remove(at: matrix[column - 1].count - 1)
+                }
+                return true
+            } else {
+                return false
+            }
         }
     }
     

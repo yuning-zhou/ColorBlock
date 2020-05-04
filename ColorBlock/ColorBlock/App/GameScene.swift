@@ -21,6 +21,7 @@ class GameScene: SKScene {
             UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
         ]
     }
@@ -66,7 +67,7 @@ class GameScene: SKScene {
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 5)
+        let blockColor = Int.random(in: 0 ..< 6)
         let factor = CGFloat(7)
         if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
@@ -74,6 +75,9 @@ class GameScene: SKScene {
         } else if blockColor == 4 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "hRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "horizontalRainbow"
+        } else if blockColor == 5 {
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "boom"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block.name = "boooom"
         } else {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "block"
@@ -149,6 +153,10 @@ extension GameScene: SKPhysicsContactDelegate{
             // check horizontally
             if (!v){
                 checkHorizontal()
+            }
+            
+            if (block.name == "boom"){
+                boom()
             }
             
             if (shifted){
@@ -313,6 +321,30 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     
  
+    func boom(){
+        let current = matrix[column - 1]
+        let tempCount = matrix[column - 1].count
+        // check for left, right, bottom, bottom-left, and bottom-right blocks
+        current[current.count - 1]?.removeFromParent()
+        matrix[column - 1].remove(at: tempCount - 1)
+        
+        for x in (0..<6){
+            // remove all blocks in the same line if not nil
+            
+            if (matrix[x].count >= tempCount){
+                matrix[x][tempCount - 1]?.removeFromParent()
+                matrix[x].remove(at: tempCount - 1)
+                if (matrix[x].count > 0){
+                    for y in matrix[x]{
+                        y?.physicsBody?.pinned = false
+                    }
+                }
+            }
+        }
+        shifted = true
+        
+        
+    }
  
     // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types
     func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {

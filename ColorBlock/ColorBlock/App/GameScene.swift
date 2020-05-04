@@ -11,17 +11,12 @@ import SpriteKit
 
 class GameScene: SKScene {
     var block: SKSpriteNode!
-    
-    struct stack{
-        var blockArray: [SKSpriteNode] = []
-    }
-    
-    var stack1: stack!
-    var stack2: stack!
-    var stack3: stack!
-    var stack4: stack!
-    var stack5: stack!
-    var stack6: stack!
+    var array1 = [SKSpriteNode]()
+    var array2 = [SKSpriteNode]()
+    var array3 = [SKSpriteNode]()
+    var array4 = [SKSpriteNode]()
+    var array5 = [SKSpriteNode]()
+    var array6 = [SKSpriteNode]()
     
     enum colorSchemes{
         static let colors = [
@@ -76,9 +71,6 @@ class GameScene: SKScene {
         block.colorBlendFactor = 1.0
         block.name = "block"
         
-        //block.color = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
-        
-        //block.size = CGSize(width: frame.size.width/7, height: frame.size.width/7)
         
         // randomize x-position of spawn
         let index = Int.random(in: 0 ..< 6)

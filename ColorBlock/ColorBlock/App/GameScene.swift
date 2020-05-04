@@ -20,6 +20,7 @@ class GameScene: SKScene {
             UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
             UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
         ]
     }
@@ -65,11 +66,14 @@ class GameScene: SKScene {
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 4)
+        let blockColor = Int.random(in: 0 ..< 5)
         let factor = CGFloat(7)
         if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
+        } else if blockColor == 4 {
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "hRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block.name = "horizontalRainbow"
         } else {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "block"
@@ -140,7 +144,6 @@ extension GameScene: SKPhysicsContactDelegate{
             
             //implement merging logic
             // check vertically
-            
             let v = checkVertical()
             
             // check horizontally
@@ -148,9 +151,8 @@ extension GameScene: SKPhysicsContactDelegate{
                 checkHorizontal()
             }
             
-            
             if (shifted){
-                let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     // pin all blocks
                     for x in (0..<6){
                         for y in self.matrix[x]{
@@ -170,7 +172,11 @@ extension GameScene: SKPhysicsContactDelegate{
         let current = matrix[column - 1]
         
         if (block.name == "verticalRainbow"){
-            print("asasas")
+            // remove entire column
+            for x in matrix[column - 1]{
+                x?.removeFromParent()
+                matrix[column - 1].removeAll()
+            }
             return true
         } else {
             if (current.count >= 3){
@@ -190,8 +196,11 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                     current[current.count - 1]?.removeFromParent()
                     matrix[column - 1].remove(at: matrix[column - 1].count - 1)
+                    return true
+                } else {
+                    return false
                 }
-                return true
+                
             } else {
                 return false
             }
@@ -201,83 +210,106 @@ extension GameScene: SKPhysicsContactDelegate{
     func checkHorizontal(){
         // check if 'tetris' condition is fulfilled
         let current = matrix[column - 1]
-        // check if all columns are filled
-        var fullLine = true
-        
-        for x in (0..<6) {
-            if (matrix[x].count < matrix[column - 1].count){
-                fullLine = false
-                break
+        let tempCount = matrix[column - 1].count
+        if (block.name == "horizontalRainbow") {
+            current[current.count - 1]?.removeFromParent()
+            matrix[column - 1].remove(at: tempCount - 1)
+            
+            for x in (0..<6){
+                // remove all blocks in the same line if not nil
+                
+                if (matrix[x].count >= tempCount){
+                    matrix[x][tempCount - 1]?.removeFromParent()
+                    matrix[x].remove(at: tempCount - 1)
+                    if (matrix[x].count > 0){
+                        for y in matrix[x]{
+                            y?.physicsBody?.pinned = false
+                        }
+                    }
+                }
             }
+            shifted = true
+        } else {
+            // check if all columns are filled
+                   var fullLine = true
+                   
+                   for x in (0..<6) {
+                       if (matrix[x].count < matrix[column - 1].count){
+                           fullLine = false
+                           break
+                       }
+                   }
+                   
+                   // check if same color
+                   if (fullLine){
+                       // valid for a check
+                       let color1 = matrix[0][current.count - 1]?.userData?.value(forKey: "color")
+                       let color2 = matrix[1][current.count - 1]?.userData?.value(forKey: "color")
+                       let color3 = matrix[2][current.count - 1]?.userData?.value(forKey: "color")
+                       let color4 = matrix[3][current.count - 1]?.userData?.value(forKey: "color")
+                       let color5 = matrix[4][current.count - 1]?.userData?.value(forKey: "color")
+                       let color6 = matrix[5][current.count - 1]?.userData?.value(forKey: "color")
+                       
+                       let condition = (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3) && isEqual(type: Int.self, a: color3, b: color4) && isEqual(type: Int.self, a: color4, b: color5) && isEqual(type: Int.self, a: color5, b: color6))
+                       
+                       
+                       if (condition){
+                           // remove blocks
+                           matrix[0][tempCount - 1]?.removeFromParent()
+                           matrix[0].remove(at: tempCount - 1)
+                           if (matrix[0].count > 0){
+                               for x in matrix[0]{
+                                   x?.physicsBody?.pinned = false
+                               }
+                           }
+                           
+                           
+                           matrix[1][tempCount - 1]?.removeFromParent()
+                           matrix[1].remove(at: tempCount - 1)
+                           if (matrix[1].count > 0){
+                               for x in matrix[1]{
+                                   x?.physicsBody?.pinned = false
+                               }
+                           }
+                           
+                           matrix[2][tempCount - 1]?.removeFromParent()
+                           matrix[2].remove(at: tempCount - 1)
+                           if (matrix[2].count > 0){
+                               for x in matrix[2]{
+                                   x?.physicsBody?.pinned = false
+                               }
+                           }
+                           
+                           matrix[3][tempCount - 1]?.removeFromParent()
+                           matrix[3].remove(at: tempCount - 1)
+                           if (matrix[3].count > 0){
+                               for x in matrix[3]{
+                                   x?.physicsBody?.pinned = false
+                               }
+                           }
+                           
+                           matrix[4][tempCount - 1]?.removeFromParent()
+                           matrix[4].remove(at: tempCount - 1)
+                           if (matrix[4].count > 0){
+                               for x in matrix[4]{
+                                   x?.physicsBody?.pinned = false
+                               }
+                           }
+                           
+                           matrix[5][tempCount - 1]?.removeFromParent()
+                           matrix[5].remove(at: tempCount - 1)
+                           if (matrix[5].count > 0){
+                               for x in matrix[5]{
+                                   x?.physicsBody?.pinned = false
+                               }
+                           }
+                           shifted = true
+                           
+                       }
+                   }
         }
         
-        // check if same color
-        if (fullLine){
-            // valid for a check
-            let color1 = matrix[0][current.count - 1]?.userData?.value(forKey: "color")
-            let color2 = matrix[1][current.count - 1]?.userData?.value(forKey: "color")
-            let color3 = matrix[2][current.count - 1]?.userData?.value(forKey: "color")
-            let color4 = matrix[3][current.count - 1]?.userData?.value(forKey: "color")
-            let color5 = matrix[4][current.count - 1]?.userData?.value(forKey: "color")
-            let color6 = matrix[5][current.count - 1]?.userData?.value(forKey: "color")
-            
-            let condition = (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3) && isEqual(type: Int.self, a: color3, b: color4) && isEqual(type: Int.self, a: color4, b: color5) && isEqual(type: Int.self, a: color5, b: color6))
-            
-            
-            if (condition){
-                // remove blocks
-                matrix[0][current.count - 1]?.removeFromParent()
-                matrix[0].remove(at: current.count - 1)
-                if (matrix[0].count > 0){
-                    for x in matrix[0]{
-                        x?.physicsBody?.pinned = false
-                    }
-                }
-                
-                
-                matrix[1][current.count - 1]?.removeFromParent()
-                matrix[1].remove(at: current.count - 1)
-                if (matrix[1].count > 0){
-                    for x in matrix[1]{
-                        x?.physicsBody?.pinned = false
-                    }
-                }
-                
-                matrix[2][current.count - 1]?.removeFromParent()
-                matrix[2].remove(at: current.count - 1)
-                if (matrix[2].count > 0){
-                    for x in matrix[2]{
-                        x?.physicsBody?.pinned = false
-                    }
-                }
-                
-                matrix[3][current.count - 1]?.removeFromParent()
-                matrix[3].remove(at: current.count - 1)
-                if (matrix[3].count > 0){
-                    for x in matrix[3]{
-                        x?.physicsBody?.pinned = false
-                    }
-                }
-                
-                matrix[4][current.count - 1]?.removeFromParent()
-                matrix[4].remove(at: current.count - 1)
-                if (matrix[4].count > 0){
-                    for x in matrix[4]{
-                        x?.physicsBody?.pinned = false
-                    }
-                }
-                
-                matrix[5][current.count - 1]?.removeFromParent()
-                matrix[5].remove(at: current.count - 1)
-                if (matrix[5].count > 0){
-                    for x in matrix[5]{
-                        x?.physicsBody?.pinned = false
-                    }
-                }
-                shifted = true
-                
-            }
-        }
+       
     }
     
  
@@ -296,7 +328,6 @@ extension GameScene: SKPhysicsContactDelegate{
         {
             return true
         }
-
         return false
     }
     

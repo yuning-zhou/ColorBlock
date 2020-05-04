@@ -292,10 +292,10 @@ extension GameScene: SKPhysicsContactDelegate{
             case 5:
                 array5.remove(at: index)
             default:
-                array.remove(at: index)
+                array6.remove(at: index)
                 break
         }
-        print(array.count)
+        
         print("removed")
     }
 }

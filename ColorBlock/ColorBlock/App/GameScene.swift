@@ -10,6 +10,7 @@ import SpriteKit
 
 
 class GameScene: SKScene {
+    var block: SKSpriteNode!
     
     enum colorSchemes{
         static let colors = [
@@ -22,10 +23,28 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         setPhysics()
         layoutScene()
+        
+        let swipeLeft : UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameScene.swipeLeft))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight : UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameScene.swipeRight))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+    }
+    
+    @objc
+    func swipeLeft(sender: UISwipeGestureRecognizer) {
+        block.position.x -= block.size.width
+    }
+    
+    @objc
+    func swipeRight(sender: UISwipeGestureRecognizer) {
+        block.position.x += block.size.width
     }
     
     func setPhysics(){
-        physicsWorld.gravity = CGVector(dx: 0, dy: -2)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -1)
         physicsWorld.contactDelegate = self
     }
    
@@ -40,7 +59,7 @@ class GameScene: SKScene {
         let blockColor = Int.random(in: 0 ..< 3)
         
         
-        let block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7, height: self.frame.size.width/7))
+        block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7, height: self.frame.size.width/7))
         block.colorBlendFactor = 1.0
         block.name = "block"
         

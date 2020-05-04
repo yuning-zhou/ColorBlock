@@ -79,7 +79,7 @@ class GameScene: SKScene {
         //block.physicsBody?.velocity = CGVector(dx: 0, dy: -3)
         
         
-        let edgeFrame = CGRect(origin: CGPoint(x: ((frame.minX)) ,y: (frame.minY)), size: CGSize(width: (frame.width), height: (frame.height)))
+        let edgeFrame = CGRect(origin: CGPoint(x: frame.minX ,y: frame.minY), size: CGSize(width: frame.width, height: frame.height))
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: edgeFrame)
         self.physicsBody?.restitution = 0.0
         
@@ -93,6 +93,9 @@ class GameScene: SKScene {
         block.physicsBody?.contactTestBitMask = blockCategory | frameCategory
         block.physicsBody?.collisionBitMask = blockCategory | frameCategory
     
+        let xRange = SKRange(lowerLimit:0,upperLimit:size.width)
+        let yRange = SKRange(lowerLimit:-20,upperLimit:size.height)
+        block.constraints = [SKConstraint.positionX(xRange,y:yRange)]
         
         addChild(block)
     }
@@ -101,6 +104,14 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
+        if (block.position.y - frame.minY <= block.size.height){
+            print("iowuwe")
+            self.spawnBlocks()
+        } else {
+            
+        }
+        
+        
         
         //self.spawnBlocks()
     }

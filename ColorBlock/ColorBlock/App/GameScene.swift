@@ -7,6 +7,9 @@
 //
 
 import SpriteKit
+protocol TransitionDelegate: SKSceneDelegate {
+    func goToPopUpView()
+}
 
 
 class GameScene: SKScene {
@@ -14,7 +17,7 @@ class GameScene: SKScene {
     var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
     var column: Int!
     var freezeTime: Double!
-    
+  
     enum colorSchemes{
         static let colors = [
             UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
@@ -62,12 +65,13 @@ class GameScene: SKScene {
    
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
+        
         freezeTime = 0.5
         spawnBlocks()
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 6)
+        let blockColor = Int.random(in: 0 ..< 3)
         let factor = CGFloat(7)
         if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
@@ -170,7 +174,13 @@ extension GameScene: SKPhysicsContactDelegate{
             }
             
             // call the next block
-            self.spawnBlocks()
+            // test if game is over
+            if (matrix[column - 1].count >= 5){
+                gameOver()
+            } else {
+                self.spawnBlocks()
+            }
+           
         }
         
     }
@@ -322,7 +332,6 @@ extension GameScene: SKPhysicsContactDelegate{
         
        
     }
-    
  
     func boom(){
         let current = matrix[column - 1]
@@ -428,6 +437,14 @@ extension GameScene: SKPhysicsContactDelegate{
             }
         
         }
+    }
+    
+    func gameOver(){
+        self.run(SKAction.wait(forDuration: 1),completion:{[unowned self] in
+            guard let delegate = self.delegate else { return }
+            self.view?.presentScene(nil)
+            (delegate as! TransitionDelegate).goToPopUpView()
+        })
     }
  
     // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types

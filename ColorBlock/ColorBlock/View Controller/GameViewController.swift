@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, TransitionDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
             let scene = GameScene(size: view.bounds.size)
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
-                
+                scene.delegate = self as TransitionDelegate
                 // Present the scene
                 view.presentScene(scene)
             
@@ -30,6 +30,14 @@ class GameViewController: UIViewController {
             
             
         }
+    }
+    
+    func goToPopUpView(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard  let storyboard = appDelegate.window?.rootViewController?.storyboard else { return }
+        let vc = storyboard.instantiateViewController(withIdentifier: "popUpView")
+        self.present(vc, animated: true, completion: nil)
+        
     }
 
 

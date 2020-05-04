@@ -7,6 +7,59 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Pop Up View Controller-->
+        <scene sceneID="sqL-Gm-7Jy">
+            <objects>
+                <viewController storyboardIdentifier="popUpView" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="vGs-Zv-DcF" customClass="PopUpViewController" customModule="ColorBlock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ilq-Jd-CMD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNI-U3-gkm">
+                                <rect key="frame" x="69" y="281" width="276" height="344"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sorry, Game Over!" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2oc-qj-grb">
+                                        <rect key="frame" x="43" y="155" width="191" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="344" id="M4g-OP-gYi"/>
+                                    <constraint firstAttribute="width" constant="276" id="ds8-51-7RM"/>
+                                    <constraint firstItem="2oc-qj-grb" firstAttribute="centerX" secondItem="XNI-U3-gkm" secondAttribute="centerX" id="rkF-EA-1pR"/>
+                                    <constraint firstItem="2oc-qj-grb" firstAttribute="centerY" secondItem="XNI-U3-gkm" secondAttribute="centerY" id="sMR-52-0fO"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bd8-Dj-cON">
+                                <rect key="frame" x="93" y="679" width="229" height="80"/>
+                                <color key="backgroundColor" red="0.0239027201" green="0.0" blue="1" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Back to Main Menu">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="yem-A6-VrJ" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="SVX-59-BGN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="4nN-ph-u11" firstAttribute="bottom" secondItem="Bd8-Dj-cON" secondAttribute="bottom" constant="103" id="BHD-N8-S3t"/>
+                            <constraint firstItem="XNI-U3-gkm" firstAttribute="centerY" secondItem="4nN-ph-u11" secondAttribute="centerY" id="FR5-Z3-k06"/>
+                            <constraint firstItem="XNI-U3-gkm" firstAttribute="centerX" secondItem="4nN-ph-u11" secondAttribute="centerX" id="fwa-tE-AiF"/>
+                            <constraint firstItem="Bd8-Dj-cON" firstAttribute="centerX" secondItem="4nN-ph-u11" secondAttribute="centerX" id="gmF-wc-9Bc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4nN-ph-u11"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PC7-u2-hDE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="yem-A6-VrJ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1412" y="-560"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -184,7 +237,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="uo5-2m-EGe"/>
                     </view>
                 </viewController>

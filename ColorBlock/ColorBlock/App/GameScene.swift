@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     var block: SKSpriteNode!
-    var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 14), count: 6)
+    var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
     var column: Int!
     
     enum colorSchemes{
@@ -170,126 +170,26 @@ extension GameScene: SKPhysicsContactDelegate{
                 matrix[column - 1].remove(at: matrix[column - 1].count - 1)
                 print("removed")
             }
-            //print(current)
         }
     }
     
     func checkHorizontal(){
+        // check if 'tetris' condition is fulfilled
         let current = matrix[column - 1]
-        if (column == 1){
-            // leftmost column
-            
-            if (matrix[1].count >= current.count && matrix[2].count >= current.count){
-                // valid for a check
-                let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
-                let color2 = matrix[1][current.count - 1]?.userData?.value(forKey: "color")
-                let color3 = matrix[2][current.count - 1]?.userData?.value(forKey: "color")
-                
-                
-                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
-                    // cancel blocks
-                    let index = current.count - 1
-                    current[index]?.removeFromParent()
-                    matrix[column - 1].remove(at: index)
-                    print("removed")
-                    
-                    matrix[1][index]?.removeFromParent()
-                    matrix[1].remove(at: index)
-                    print("removed")
-                    // shift down blocks
-                    
-                    matrix[2][index]?.removeFromParent()
-                    matrix[2].remove(at: index)
-                    print("removed")
-                    // shift down blocks
-                }
+        // check if all columns are filled
+        var fullLine = true
+        let index = current.count - 1
+        
+        for x in (0..<6) {
+            if (!isObjectNotNil(object: matrix[x][index])){
+                // nil value
+                fullLine = false
             }
-            
-            
         }
         
-        else if (column == 6){
-            // rightmost column
-            
-            if (matrix[4].count >= current.count && matrix[3].count >= current.count){
-                // valid for a check
-                let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
-                let color2 = matrix[4][current.count - 1]?.userData?.value(forKey: "color")
-                let color3 = matrix[5][current.count - 1]?.userData?.value(forKey: "color")
-                
-                
-                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
-                    // cancel blocks
-                    let index = current.count - 1
-                    current[index]?.removeFromParent()
-                    matrix[column - 1].remove(at: index)
-                    print("removed")
-                    
-                    matrix[4][index]?.removeFromParent()
-                    matrix[4].remove(at: index)
-                    print("removed")
-                    // shift down blocks
-                    
-                    matrix[5][index]?.removeFromParent()
-                    matrix[5].remove(at: index)
-                    print("removed")
-                    // shift down blocks
-                }
-            }
-            
-        } else {
-            // middle columns
-            switch(column){
-                case 2:
-                    // test for rightside
-                    if (matrix[2].count >= current.count){
-                        // valid for a check
-                        // test for both 123 and 234
-                        if (matrix[0].count >= current.count){
-                             // case 123
-                            
-                        }
-                       
-                        
-                }
-                
-                
-                
-                
-                
-                
-                case 3:
-                    leftCol = array2
-                    rightCol = array4
-                case 4:
-                    leftCol = array3
-                    rightCol = array5
-                case 5:
-                    leftCol = array4
-                default:
-                    break
-            }
-            
-            if (leftCol.count >= current.count && rightCol.count >= current.count){
-                // valid for a check
-                print("leftcol: ")
-                print(leftCol.count)
-                print("rightcol: ")
-                print(rightCol.count)
-                print(current.count)
-                let color1 = current[current.count - 1].userData?.value(forKey: "color")
-                let color2 = leftCol[current.count - 1].userData?.value(forKey: "color")
-                let color3 = rightCol[current.count - 1].userData?.value(forKey: "color")
-                
-                
-                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
-                    // cancel blocks
-                    removeBlock(array: &current, index: current.count - 1);
-                    removeBlock(array: &leftCol, index: current.count - 1);
-                    removeBlock(array: &rightCol, index: current.count - 1);
-                }
-            }
-        }*/
+        if (fullLine){
+            print("yes!")
+        }
     }
     
  
@@ -299,6 +199,17 @@ extension GameScene: SKPhysicsContactDelegate{
         guard let a = a as? T, let b = b as? T else { return false }
 
         return a == b
+    }
+    
+    // check for nil object, code snipet from https://stackoverflow.com/questions/26686948/how-to-check-object-is-nil-or-not-in-swift
+    func isObjectNotNil(object:AnyObject!) -> Bool
+    {
+        if let _:AnyObject = object
+        {
+            return true
+        }
+
+        return false
     }
     
 }

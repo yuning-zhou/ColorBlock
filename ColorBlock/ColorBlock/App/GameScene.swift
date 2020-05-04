@@ -135,10 +135,10 @@ extension GameScene: SKPhysicsContactDelegate{
             
             //implement merging logic
             // check vertically
-            checkVertical()
+            //checkVertical()
             
             // check horizontally
-            //checkHorizontal(current: &currentCol)
+            checkHorizontal()
             
             
             
@@ -173,28 +173,40 @@ extension GameScene: SKPhysicsContactDelegate{
             //print(current)
         }
     }
-    /*
-    func checkHorizontal(current: inout [SKSpriteNode]){
+    
+    func checkHorizontal(){
+        let current = matrix[column - 1]
         if (column == 1){
             // leftmost column
             
-            if (array2.count >= array1.count && array3.count >= array1.count){
+            if (matrix[1].count >= current.count && matrix[2].count >= current.count){
                 // valid for a check
-                let color1 = current[current.count - 1].userData?.value(forKey: "color")
-                let color2 = array2[current.count - 1].userData?.value(forKey: "color")
-                let color3 = array3[current.count - 1].userData?.value(forKey: "color")
+                let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
+                let color2 = matrix[1][current.count - 1]?.userData?.value(forKey: "color")
+                let color3 = matrix[2][current.count - 1]?.userData?.value(forKey: "color")
                 
                 
                 if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
                     // cancel blocks
-                    removeBlock(array: &current, index: current.count - 1);
-                    removeBlock(array: &array2, index: current.count - 1);
-                    removeBlock(array: &array3, index: current.count - 1);
+                    let index = current.count - 1
+                    current[index]?.removeFromParent()
+                    matrix[column - 1].remove(at: index)
+                    print("removed")
+                    
+                    matrix[1][index]?.removeFromParent()
+                    matrix[1].remove(at: index)
+                    print("removed")
+                    
+                    matrix[2][index]?.removeFromParent()
+                    matrix[2].remove(at: index)
+                    print("removed")
                 }
             }
             
             
-        } else if (column == 6){
+        }
+        /*
+        else if (column == 6){
             // rightmost column
             
             if (array5.count >= array6.count && array4.count >= array6.count){
@@ -250,10 +262,10 @@ extension GameScene: SKPhysicsContactDelegate{
                     removeBlock(array: &rightCol, index: current.count - 1);
                 }
             }
-        }
+        }*/
     }
     
- */
+ 
  
     // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types
     func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {
@@ -262,7 +274,4 @@ extension GameScene: SKPhysicsContactDelegate{
         return a == b
     }
     
-    func removeBlock(array: inout [SKSpriteNode], index: Int){
-        
-    }
 }

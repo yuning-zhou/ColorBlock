@@ -134,32 +134,35 @@ extension GameScene: SKPhysicsContactDelegate{
             block.physicsBody?.pinned = true
             
             // add to array
-            var currentCol = [SKSpriteNode]()
+            var currentCol = array6
             switch(column){
                 case 1:
+                    array1.append(block)
                     currentCol = array1
                 case 2:
+                    array2.append(block)
                     currentCol = array2
                 case 3:
+                    array3.append(block)
                     currentCol = array3
                 case 4:
+                    array4.append(block)
                     currentCol = array4
                 case 5:
+                    array5.append(block)
                     currentCol = array5
-                case 6:
-                    currentCol = array6
                 default:
+                    array6.append(block)
+                    currentCol.append(block)
                     break
             }
-            currentCol.append(block)
-            print(currentCol)
             
             //implement merging logic
             // check vertically
-            checkVertical(current: currentCol)
+            checkVertical(current: &currentCol)
             
             // check horizontally
-            checkHorizontal(current: currentCol)
+            checkHorizontal(current: &currentCol)
             
             
             
@@ -168,17 +171,55 @@ extension GameScene: SKPhysicsContactDelegate{
         }
         
     }
-    func checkVertical(current: [SKSpriteNode]){
-        print(column)
+    func checkVertical(current: inout [SKSpriteNode]){
+        
         if (current.count >= 3){
             // valid for a check
-            if (current[current.count - 1].userData?.value(forKey: "color") == current[current.count - 2].userData?.value(forKey: "color") ){
-                print("wow")
+            let color1 = current[current.count - 1].userData?.value(forKey: "color")
+            let color2 = current[current.count - 2].userData?.value(forKey: "color")
+            let color3 = current[current.count - 3].userData?.value(forKey: "color")
+            
+            
+            if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
+                // cancel blocks
+                removeBlock(array: &current, index: current.count - 3);
+                removeBlock(array: &current, index: current.count - 2);
+                removeBlock(array: &current, index: current.count - 1);
             }
+            //print(current)
         }
     }
     
-    func checkHorizontal(current: [SKSpriteNode]){
+    func checkHorizontal(current: inout [SKSpriteNode]){
         
+    }
+    
+    // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types
+    func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {
+        guard let a = a as? T, let b = b as? T else { return false }
+
+        return a == b
+    }
+    
+    func removeBlock(array: inout [SKSpriteNode], index: Int){
+        array[index].removeFromParent()
+        array.remove(at: index)
+        switch(column){
+            case 1:
+                array1.remove(at: index)
+            case 2:
+                array2.remove(at: index)
+            case 3:
+                array3.remove(at: index)
+            case 4:
+                array4.remove(at: index)
+            case 5:
+                array5.remove(at: index)
+            default:
+                array.remove(at: index)
+                break
+        }
+        print(array.count)
+        print("removed")
     }
 }

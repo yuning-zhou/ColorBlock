@@ -128,9 +128,6 @@ extension GameScene: SKPhysicsContactDelegate{
         if (test < block.size.width/3){
             block.physicsBody?.pinned = true
             
-            //let temp = SKSpriteNode.init()
-            //temp.name = "temp"
-            // add to matrix
             matrix[column - 1].append(block)
             
             //implement merging logic
@@ -176,6 +173,7 @@ extension GameScene: SKPhysicsContactDelegate{
     func checkHorizontal(){
         // check if 'tetris' condition is fulfilled
         let current = matrix[column - 1]
+        
         // check if all columns are filled
         var fullLine = true
         let index = current.count - 1
@@ -187,8 +185,57 @@ extension GameScene: SKPhysicsContactDelegate{
             }
         }
         
+        // check if same color
         if (fullLine){
-            print("yes!")
+            // valid for a check
+            let color1 = matrix[0][current.count - 1]?.userData?.value(forKey: "color")
+            let color2 = matrix[1][current.count - 1]?.userData?.value(forKey: "color")
+            let color3 = matrix[2][current.count - 1]?.userData?.value(forKey: "color")
+            let color4 = matrix[3][current.count - 1]?.userData?.value(forKey: "color")
+            let color5 = matrix[4][current.count - 1]?.userData?.value(forKey: "color")
+            let color6 = matrix[5][current.count - 1]?.userData?.value(forKey: "color")
+            
+            
+            let condition = (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3) && isEqual(type: Int.self, a: color3, b: color4) && isEqual(type: Int.self, a: color4, b: color5) && isEqual(type: Int.self, a: color5, b: color6))
+            
+            
+            if (condition){
+                // remove blocks
+                matrix[0][current.count - 1]?.removeFromParent()
+                matrix[0].remove(at: matrix[0].count - 1)
+                print("removed")
+                if (matrix[0].count > 0){
+                    for x in matrix[0]{
+                        x?.physicsBody?.pinned = false
+                    }
+                }
+                
+                
+                matrix[1][current.count - 1]?.removeFromParent()
+                matrix[1].remove(at: matrix[1].count - 1)
+                print("removed")
+                if (matrix[1].count > 0){
+                    for x in matrix[1]{
+                        x?.physicsBody?.pinned = false
+                    }
+                }
+                
+                matrix[2][current.count - 1]?.removeFromParent()
+                matrix[2].remove(at: matrix[2].count - 1)
+                print("removed")
+                
+                matrix[3][current.count - 1]?.removeFromParent()
+                matrix[3].remove(at: matrix[3].count - 1)
+                print("removed")
+                
+                matrix[4][current.count - 1]?.removeFromParent()
+                matrix[4].remove(at: matrix[4].count - 1)
+                print("removed")
+                
+                matrix[5][current.count - 1]?.removeFromParent()
+                matrix[5].remove(at: matrix[5].count - 1)
+                print("removed")
+            }
         }
     }
     
@@ -213,3 +260,5 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     
 }
+
+

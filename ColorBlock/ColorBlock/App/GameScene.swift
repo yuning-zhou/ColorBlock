@@ -125,22 +125,19 @@ extension GameScene: SKPhysicsContactDelegate{
         print(test)
         print(block.size.width/3)
         if (test < block.size.width/3){
-            print("asd")
             block.physicsBody?.pinned = true
+            
+            // implement merging logic
+            
+            
+            
+            
+            
+            
+            
+            // call the next block
             self.spawnBlocks()
         }
         
-        /*
-        if (block.position.y  - block.size.height/2 == frame.minY){
-            block.physicsBody?.pinned = true
-            self.spawnBlocks()
-        }
-        print(block.position.y - block.size.height/2)
-        print(frame.minY)
-        //block.position.y - frame.minY <= block.size.height
-        
-        
-        //self.spawnBlocks()
-        */
     }
 }

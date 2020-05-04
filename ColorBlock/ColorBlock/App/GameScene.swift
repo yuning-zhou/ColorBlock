@@ -133,10 +133,14 @@ extension GameScene: SKPhysicsContactDelegate{
             
             //implement merging logic
             // check vertically
-            //checkVertical()
+            
+            let v = checkVertical()
             
             // check horizontally
-            checkHorizontal()
+            if (!v){
+                checkHorizontal()
+            }
+            
             
             if (shifted){
                 let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
@@ -155,7 +159,7 @@ extension GameScene: SKPhysicsContactDelegate{
         }
         
     }
-    func checkVertical(){
+    func checkVertical() -> Bool{
         let current = matrix[column - 1]
         if (current.count >= 3){
             // valid for a check
@@ -175,19 +179,20 @@ extension GameScene: SKPhysicsContactDelegate{
                 current[current.count - 1]?.removeFromParent()
                 matrix[column - 1].remove(at: matrix[column - 1].count - 1)
             }
+            return true
+        } else {
+            return false
         }
     }
     
     func checkHorizontal(){
         // check if 'tetris' condition is fulfilled
         let current = matrix[column - 1]
-        
         // check if all columns are filled
         var fullLine = true
-        let index = current.count - 1
         
         for x in (0..<6) {
-            if (matrix[x].count < index + 1){
+            if (matrix[x].count < matrix[column - 1].count){
                 fullLine = false
                 break
             }

@@ -13,6 +13,7 @@ class GameScene: SKScene {
     var block: SKSpriteNode!
     var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
     var column: Int!
+    var shifted: Bool!
     
     enum colorSchemes{
         static let colors = [
@@ -58,6 +59,7 @@ class GameScene: SKScene {
    
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
+        shifted = false
         spawnBlocks()
     }
     
@@ -127,7 +129,6 @@ extension GameScene: SKPhysicsContactDelegate{
         
         if (test < block.size.width/3){
             block.physicsBody?.pinned = true
-            
             matrix[column - 1].append(block)
             
             //implement merging logic
@@ -137,7 +138,17 @@ extension GameScene: SKPhysicsContactDelegate{
             // check horizontally
             checkHorizontal()
             
-            
+            if (shifted){
+                let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
+                    // pin all blocks
+                    for x in (0..<6){
+                        for y in self.matrix[x]{
+                            y?.physicsBody?.pinned = true
+                        }
+                    }
+                }
+                shifted = false
+            }
             
             // call the next block
             self.spawnBlocks()
@@ -157,15 +168,12 @@ extension GameScene: SKPhysicsContactDelegate{
                 // remove blocks
                 current[current.count - 3]?.removeFromParent()
                 matrix[column - 1].remove(at: matrix[column - 1].count - 3)
-                print("removed")
                 
                 current[current.count - 2]?.removeFromParent()
                 matrix[column - 1].remove(at: matrix[column - 1].count - 2)
-                print("removed")
                 
                 current[current.count - 1]?.removeFromParent()
                 matrix[column - 1].remove(at: matrix[column - 1].count - 1)
-                print("removed")
             }
         }
     }
@@ -195,15 +203,13 @@ extension GameScene: SKPhysicsContactDelegate{
             let color5 = matrix[4][current.count - 1]?.userData?.value(forKey: "color")
             let color6 = matrix[5][current.count - 1]?.userData?.value(forKey: "color")
             
-            
             let condition = (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3) && isEqual(type: Int.self, a: color3, b: color4) && isEqual(type: Int.self, a: color4, b: color5) && isEqual(type: Int.self, a: color5, b: color6))
             
             
             if (condition){
                 // remove blocks
                 matrix[0][current.count - 1]?.removeFromParent()
-                matrix[0].remove(at: matrix[0].count - 1)
-                print("removed")
+                matrix[0].remove(at: current.count - 1)
                 if (matrix[0].count > 0){
                     for x in matrix[0]{
                         x?.physicsBody?.pinned = false
@@ -212,8 +218,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 
                 
                 matrix[1][current.count - 1]?.removeFromParent()
-                matrix[1].remove(at: matrix[1].count - 1)
-                print("removed")
+                matrix[1].remove(at: current.count - 1)
                 if (matrix[1].count > 0){
                     for x in matrix[1]{
                         x?.physicsBody?.pinned = false
@@ -221,20 +226,38 @@ extension GameScene: SKPhysicsContactDelegate{
                 }
                 
                 matrix[2][current.count - 1]?.removeFromParent()
-                matrix[2].remove(at: matrix[2].count - 1)
-                print("removed")
+                matrix[2].remove(at: current.count - 1)
+                if (matrix[2].count > 0){
+                    for x in matrix[2]{
+                        x?.physicsBody?.pinned = false
+                    }
+                }
                 
                 matrix[3][current.count - 1]?.removeFromParent()
-                matrix[3].remove(at: matrix[3].count - 1)
-                print("removed")
+                matrix[3].remove(at: current.count - 1)
+                if (matrix[3].count > 0){
+                    for x in matrix[3]{
+                        x?.physicsBody?.pinned = false
+                    }
+                }
                 
                 matrix[4][current.count - 1]?.removeFromParent()
-                matrix[4].remove(at: matrix[4].count - 1)
-                print("removed")
+                matrix[4].remove(at: current.count - 1)
+                if (matrix[4].count > 0){
+                    for x in matrix[4]{
+                        x?.physicsBody?.pinned = false
+                    }
+                }
                 
                 matrix[5][current.count - 1]?.removeFromParent()
-                matrix[5].remove(at: matrix[5].count - 1)
-                print("removed")
+                matrix[5].remove(at: current.count - 1)
+                if (matrix[5].count > 0){
+                    for x in matrix[5]{
+                        x?.physicsBody?.pinned = false
+                    }
+                }
+                shifted = true
+                
             }
         }
     }

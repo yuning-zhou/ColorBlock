@@ -12,6 +12,17 @@ import SpriteKit
 class GameScene: SKScene {
     var block: SKSpriteNode!
     
+    struct stack{
+        var blockArray: [SKSpriteNode] = []
+    }
+    
+    var stack1: stack!
+    var stack2: stack!
+    var stack3: stack!
+    var stack4: stack!
+    var stack5: stack!
+    var stack6: stack!
+    
     enum colorSchemes{
         static let colors = [
             UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
@@ -35,12 +46,16 @@ class GameScene: SKScene {
     
     @objc
     func swipeLeft(sender: UISwipeGestureRecognizer) {
-        block.position.x -= block.size.width
+        if (block.position.x - block.size.width*1.5 >= frame.minX){
+            block.position.x -= block.size.width
+        }
     }
     
     @objc
     func swipeRight(sender: UISwipeGestureRecognizer) {
-        block.position.x += block.size.width
+        if (block.position.x + block.size.width*1.5 <= frame.maxX){
+            block.position.x += block.size.width
+        }
     }
     
     func setPhysics(){
@@ -56,8 +71,8 @@ class GameScene: SKScene {
     func spawnBlocks(){
         let blockColor = Int.random(in: 0 ..< 3)
         
-        
-        block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7.1, height: self.frame.size.width/7.1))
+        let factor = CGFloat(7)
+        block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
         block.colorBlendFactor = 1.0
         block.name = "block"
         
@@ -66,9 +81,10 @@ class GameScene: SKScene {
         //block.size = CGSize(width: frame.size.width/7, height: frame.size.width/7)
         
         // randomize x-position of spawn
-        let index = Int.random(in: 0 ..< 7)
+        let index = Int.random(in: 0 ..< 6)
         let top = frame.maxY - block.size.width*2
-        let xValue = frame.minX + CGFloat(Double(index) + 0.5) * block.size.width
+        let xValue = frame.minX + CGFloat(Double(index) + 0.8) * block.size.width
+        
         
         block.position = CGPoint(x: xValue, y: top)
         block.physicsBody = SKPhysicsBody(circleOfRadius: block.size.width/2)
@@ -81,7 +97,7 @@ class GameScene: SKScene {
         //block.physicsBody?.velocity = CGVector(dx: 0, dy: -3)
         
         
-        let edgeFrame = CGRect(origin: CGPoint(x: frame.minX ,y: frame.minY), size: CGSize(width: frame.width, height: frame.height))
+        let edgeFrame = CGRect(origin: CGPoint(x: frame.minX, y: frame.minY), size: CGSize(width: (self.view?.frame.width)!, height: (self.view?.frame.height)!))
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: edgeFrame)
         self.physicsBody?.restitution = 0.0
         
@@ -114,8 +130,10 @@ extension GameScene: SKPhysicsContactDelegate{
         let xDist = (contact.contactPoint.x - blockBottom.x)
         let yDist = (contact.contactPoint.y - blockBottom.y)
         let test = CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
-        
-        if (test < block.size.width/2){
+        print(test)
+        print(block.size.width/3)
+        if (test < block.size.width/3){
+            print("asd")
             block.physicsBody?.pinned = true
             self.spawnBlocks()
         }

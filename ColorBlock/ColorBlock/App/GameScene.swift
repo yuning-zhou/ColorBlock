@@ -13,7 +13,7 @@ class GameScene: SKScene {
     var block: SKSpriteNode!
     var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
     var column: Int!
-    var shifted: Bool!
+    var freezeTime: Double!
     
     enum colorSchemes{
         static let colors = [
@@ -22,7 +22,7 @@ class GameScene: SKScene {
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         ]
     }
     
@@ -62,7 +62,7 @@ class GameScene: SKScene {
    
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
-        shifted = false
+        freezeTime = 0.5
         spawnBlocks()
     }
     
@@ -77,7 +77,7 @@ class GameScene: SKScene {
             block.name = "horizontalRainbow"
         } else if blockColor == 5 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "boom"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
-            block.name = "boooom"
+            block.name = "boom"
         } else {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "block"
@@ -155,12 +155,10 @@ extension GameScene: SKPhysicsContactDelegate{
                 checkHorizontal()
             }
             
-            if (block.name == "boom"){
-                boom()
-            }
             
-            if (shifted){
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            if (freezeTime > 0.5){
+                DispatchQueue.main.asyncAfter(deadline: .now() + freezeTime) {
                     // pin all blocks
                     for x in (0..<6){
                         for y in self.matrix[x]{
@@ -168,7 +166,7 @@ extension GameScene: SKPhysicsContactDelegate{
                         }
                     }
                 }
-                shifted = false
+                freezeTime = 0.5
             }
             
             // call the next block
@@ -178,6 +176,11 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     func checkVertical() -> Bool{
         let current = matrix[column - 1]
+        
+        if (block.name == "boom"){
+            boom()
+            return true
+        }
         
         if (block.name == "verticalRainbow"){
             // remove entire column
@@ -236,7 +239,7 @@ extension GameScene: SKPhysicsContactDelegate{
                     }
                 }
             }
-            shifted = true
+            freezeTime = 1.0
         } else {
             // check if all columns are filled
                    var fullLine = true
@@ -311,7 +314,7 @@ extension GameScene: SKPhysicsContactDelegate{
                                    x?.physicsBody?.pinned = false
                                }
                            }
-                           shifted = true
+                        freezeTime = 1.0
                            
                        }
                    }
@@ -325,25 +328,106 @@ extension GameScene: SKPhysicsContactDelegate{
         let current = matrix[column - 1]
         let tempCount = matrix[column - 1].count
         // check for left, right, bottom, bottom-left, and bottom-right blocks
+        // check for upper-left and upper-right blocks. If they exist, remove them
+        
+        // remove self
         current[current.count - 1]?.removeFromParent()
         matrix[column - 1].remove(at: tempCount - 1)
         
-        for x in (0..<6){
-            // remove all blocks in the same line if not nil
-            
-            if (matrix[x].count >= tempCount){
-                matrix[x][tempCount - 1]?.removeFromParent()
-                matrix[x].remove(at: tempCount - 1)
-                if (matrix[x].count > 0){
-                    for y in matrix[x]{
+        // remove bottom
+        if (matrix[column - 1].count > 0){
+            matrix[column - 1][matrix[column - 1].count - 1]?.removeFromParent()
+            matrix[column - 1].remove(at: matrix[column - 1].count - 1)
+        }
+        
+        // remove left 3 blocks
+        if (column > 1) {
+            let distance = matrix[column - 2].count - tempCount
+            if (distance >= -1){
+                switch(distance){
+                    case -1:
+                        // only need to remove bottom-left block
+                        if (matrix[column - 1].count > 1){
+                            matrix[column - 2][tempCount - 2]?.removeFromParent()
+                            matrix[column - 2].remove(at: matrix[column - 2].count - 1)
+                        }
+                    case 0:
+                        // need to remove bottom-left and left bocks
+                        matrix[column - 2][tempCount - 1]?.removeFromParent()
+                        matrix[column - 2].remove(at: matrix[column - 2].count - 1)
+                    
+                        if (matrix[column - 1].count > 1){
+                            matrix[column - 2][matrix[column - 2].count - 1]?.removeFromParent()
+                            matrix[column - 2].remove(at: matrix[column - 2].count - 1)
+                        }
+                        
+                    default:
+                        // need to remove bottom-left, left, and upper-left blocks
+                        matrix[column - 2][tempCount]?.removeFromParent()
+                        matrix[column - 2].remove(at: tempCount)
+                    
+                        matrix[column - 2][tempCount - 1]?.removeFromParent()
+                        matrix[column - 2].remove(at: tempCount - 1)
+                        freezeTime = 2.0
+                        
+                        if (matrix[column - 1].count > 1){
+                            matrix[column - 2][tempCount - 2]?.removeFromParent()
+                            matrix[column - 2].remove(at: tempCount - 2)
+                            freezeTime = 3.0
+                        }
+                }
+                
+                if (matrix[column - 2].count > 0){
+                    for y in matrix[column - 2]{
                         y?.physicsBody?.pinned = false
                     }
                 }
             }
         }
-        shifted = true
+        // remove right 3 blocks
+        if (column < 5) {
+            let distance = matrix[column].count - tempCount
+            if (distance >= -1){
+                switch(distance){
+                    case -1:
+                        // only need to remove bottom-right block
+                        if (matrix[column - 1].count > 1){
+                            matrix[column][tempCount - 2]?.removeFromParent()
+                            matrix[column].remove(at: matrix[column].count - 1)
+                        }
+                    case 0:
+                        // need to remove bottom-right and right bocks
+                        matrix[column][tempCount - 1]?.removeFromParent()
+                        matrix[column].remove(at: matrix[column].count - 1)
+                    
+                        if (matrix[column - 1].count > 1){
+                            matrix[column][matrix[column].count - 1]?.removeFromParent()
+                            matrix[column].remove(at: matrix[column].count - 1)
+                        }
+                        
+                    default:
+                        // need to remove bottom-right, right, and upper-right blocks
+                        matrix[column][tempCount]?.removeFromParent()
+                        matrix[column].remove(at: tempCount)
+                    
+                        matrix[column][tempCount - 1]?.removeFromParent()
+                        matrix[column].remove(at: tempCount - 1)
+                        freezeTime = 2.0
+                        
+                        if (matrix[column - 1].count > 1){
+                            matrix[column][tempCount - 2]?.removeFromParent()
+                            matrix[column].remove(at: tempCount - 2)
+                            freezeTime = 3.0
+                        }
+                }
+                if (matrix[column].count > 0){
+                    for y in matrix[column]{
+                        y?.physicsBody?.pinned = false
+                    }
+                }
+            }
         
-        
+        }
     }
  
     // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types
@@ -353,15 +437,6 @@ extension GameScene: SKPhysicsContactDelegate{
         return a == b
     }
     
-    // check for nil object, code snipet from https://stackoverflow.com/questions/26686948/how-to-check-object-is-nil-or-not-in-swift
-    func isObjectNotNil(object:AnyObject!) -> Bool
-    {
-        if let _:AnyObject = object
-        {
-            return true
-        }
-        return false
-    }
     
 }
 

@@ -181,9 +181,9 @@ extension GameScene: SKPhysicsContactDelegate{
         let index = current.count - 1
         
         for x in (0..<6) {
-            if (!isObjectNotNil(object: matrix[x][index])){
-                // nil value
+            if (matrix[x].count < index + 1){
                 fullLine = false
+                break
             }
         }
         

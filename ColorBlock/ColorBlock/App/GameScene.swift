@@ -44,6 +44,7 @@ class GameScene: SKScene {
     func swipeLeft(sender: UISwipeGestureRecognizer) {
         if (block.position.x - block.size.width*1.5 >= frame.minX){
             block.position.x -= block.size.width
+            column -= 1
         }
     }
     
@@ -51,6 +52,7 @@ class GameScene: SKScene {
     func swipeRight(sender: UISwipeGestureRecognizer) {
         if (block.position.x + block.size.width*1.5 <= frame.maxX){
             block.position.x += block.size.width
+            column += 1
         }
     }
     
@@ -127,8 +129,7 @@ extension GameScene: SKPhysicsContactDelegate{
         let xDist = (contact.contactPoint.x - blockBottom.x)
         let yDist = (contact.contactPoint.y - blockBottom.y)
         let test = CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
-        print(test)
-        print(block.size.width/3)
+        
         if (test < block.size.width/3){
             block.physicsBody?.pinned = true
             
@@ -151,6 +152,7 @@ extension GameScene: SKPhysicsContactDelegate{
                     break
             }
             currentCol.append(block)
+            print(currentCol)
             
             //implement merging logic
             // check vertically
@@ -167,7 +169,13 @@ extension GameScene: SKPhysicsContactDelegate{
         
     }
     func checkVertical(current: [SKSpriteNode]){
-        
+        print(column)
+        if (current.count >= 3){
+            // valid for a check
+            if (current[current.count - 1].userData?.value(forKey: "color") == current[current.count - 2].userData?.value(forKey: "color") ){
+                print("wow")
+            }
+        }
     }
     
     func checkHorizontal(current: [SKSpriteNode]){

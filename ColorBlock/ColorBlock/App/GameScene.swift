@@ -162,7 +162,7 @@ extension GameScene: SKPhysicsContactDelegate{
             checkVertical(current: &currentCol)
             
             // check horizontally
-            checkHorizontal(current: &currentCol)
+            //checkHorizontal(current: &currentCol)
             
             
             
@@ -191,7 +191,81 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     
     func checkHorizontal(current: inout [SKSpriteNode]){
-        
+        if (column == 1){
+            // leftmost column
+            
+            if (array2.count >= array1.count && array3.count >= array1.count){
+                // valid for a check
+                let color1 = current[current.count - 1].userData?.value(forKey: "color")
+                let color2 = array2[current.count - 1].userData?.value(forKey: "color")
+                let color3 = array3[current.count - 1].userData?.value(forKey: "color")
+                
+                
+                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
+                    // cancel blocks
+                    removeBlock(array: &current, index: current.count - 1);
+                    removeBlock(array: &array2, index: current.count - 1);
+                    removeBlock(array: &array3, index: current.count - 1);
+                }
+            }
+            
+            
+        } else if (column == 6){
+            // rightmost column
+            
+            if (array5.count >= array6.count && array4.count >= array6.count){
+                // valid for a check
+                let color1 = current[current.count - 1].userData?.value(forKey: "color")
+                let color2 = array4[current.count - 1].userData?.value(forKey: "color")
+                let color3 = array5[current.count - 1].userData?.value(forKey: "color")
+                
+                
+                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
+                    // cancel blocks
+                    removeBlock(array: &current, index: current.count - 1);
+                    removeBlock(array: &array4, index: current.count - 1);
+                    removeBlock(array: &array5, index: current.count - 1);
+                }
+            }
+            
+        } else {
+            // middle columns
+            var leftCol = array1
+            var rightCol = array6
+            switch(column){
+                case 2:
+                    rightCol = array3
+                case 3:
+                    leftCol = array2
+                    rightCol = array4
+                case 4:
+                    leftCol = array3
+                    rightCol = array5
+                case 5:
+                    leftCol = array4
+                default:
+                    break
+            }
+            
+            if (leftCol.count >= current.count && rightCol.count >= current.count){
+                // valid for a check
+                print("leftcol: ")
+                print(leftCol.count)
+                print("rightcol: ")
+                print(rightCol.count)
+                let color1 = current[current.count - 1].userData?.value(forKey: "color")
+                let color2 = leftCol[current.count - 1].userData?.value(forKey: "color")
+                let color3 = rightCol[current.count - 1].userData?.value(forKey: "color")
+                
+                
+                if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
+                    // cancel blocks
+                    removeBlock(array: &current, index: current.count - 1);
+                    removeBlock(array: &leftCol, index: current.count - 1);
+                    removeBlock(array: &rightCol, index: current.count - 1);
+                }
+            }
+        }
     }
     
     // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types
@@ -202,6 +276,8 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     
     func removeBlock(array: inout [SKSpriteNode], index: Int){
+        print(array.count)
+        print(index)
         array[index].removeFromParent()
         array.remove(at: index)
         switch(column){

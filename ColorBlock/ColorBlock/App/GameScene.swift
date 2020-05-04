@@ -11,12 +11,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     var block: SKSpriteNode!
-    var array1 = [SKSpriteNode]()
-    var array2 = [SKSpriteNode]()
-    var array3 = [SKSpriteNode]()
-    var array4 = [SKSpriteNode]()
-    var array5 = [SKSpriteNode]()
-    var array6 = [SKSpriteNode]()
+    var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 14), count: 6)
     var column: Int!
     
     enum colorSchemes{
@@ -133,33 +128,14 @@ extension GameScene: SKPhysicsContactDelegate{
         if (test < block.size.width/3){
             block.physicsBody?.pinned = true
             
-            // add to array
-            var currentCol = array6
-            switch(column){
-                case 1:
-                    array1.append(block)
-                    currentCol = array1
-                case 2:
-                    array2.append(block)
-                    currentCol = array2
-                case 3:
-                    array3.append(block)
-                    currentCol = array3
-                case 4:
-                    array4.append(block)
-                    currentCol = array4
-                case 5:
-                    array5.append(block)
-                    currentCol = array5
-                default:
-                    array6.append(block)
-                    currentCol.append(block)
-                    break
-            }
+            //let temp = SKSpriteNode.init()
+            //temp.name = "temp"
+            // add to matrix
+            matrix[column - 1].append(block)
             
             //implement merging logic
             // check vertically
-            checkVertical(current: &currentCol)
+            checkVertical()
             
             // check horizontally
             //checkHorizontal(current: &currentCol)
@@ -171,25 +147,33 @@ extension GameScene: SKPhysicsContactDelegate{
         }
         
     }
-    func checkVertical(current: inout [SKSpriteNode]){
-        
+    func checkVertical(){
+        let current = matrix[column - 1]
         if (current.count >= 3){
             // valid for a check
-            let color1 = current[current.count - 1].userData?.value(forKey: "color")
-            let color2 = current[current.count - 2].userData?.value(forKey: "color")
-            let color3 = current[current.count - 3].userData?.value(forKey: "color")
+            let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
+            let color2 = current[current.count - 2]?.userData?.value(forKey: "color")
+            let color3 = current[current.count - 3]?.userData?.value(forKey: "color")
             
             
             if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
-                // cancel blocks
-                removeBlock(array: &current, index: current.count - 3);
-                removeBlock(array: &current, index: current.count - 2);
-                removeBlock(array: &current, index: current.count - 1);
+                // remove blocks
+                current[current.count - 3]?.removeFromParent()
+                matrix[column - 1].remove(at: matrix[column - 1].count - 3)
+                print("removed")
+                
+                current[current.count - 2]?.removeFromParent()
+                matrix[column - 1].remove(at: matrix[column - 1].count - 2)
+                print("removed")
+                
+                current[current.count - 1]?.removeFromParent()
+                matrix[column - 1].remove(at: matrix[column - 1].count - 1)
+                print("removed")
             }
             //print(current)
         }
     }
-    
+    /*
     func checkHorizontal(current: inout [SKSpriteNode]){
         if (column == 1){
             // leftmost column
@@ -253,6 +237,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 print(leftCol.count)
                 print("rightcol: ")
                 print(rightCol.count)
+                print(current.count)
                 let color1 = current[current.count - 1].userData?.value(forKey: "color")
                 let color2 = leftCol[current.count - 1].userData?.value(forKey: "color")
                 let color3 = rightCol[current.count - 1].userData?.value(forKey: "color")
@@ -268,6 +253,8 @@ extension GameScene: SKPhysicsContactDelegate{
         }
     }
     
+ */
+ 
     // compare Any type, code snipet from https://stackoverflow.com/questions/34778950/how-to-compare-any-value-types
     func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {
         guard let a = a as? T, let b = b as? T else { return false }
@@ -276,26 +263,6 @@ extension GameScene: SKPhysicsContactDelegate{
     }
     
     func removeBlock(array: inout [SKSpriteNode], index: Int){
-        print(array.count)
-        print(index)
-        array[index].removeFromParent()
-        array.remove(at: index)
-        switch(column){
-            case 1:
-                array1.remove(at: index)
-            case 2:
-                array2.remove(at: index)
-            case 3:
-                array3.remove(at: index)
-            case 4:
-                array4.remove(at: index)
-            case 5:
-                array5.remove(at: index)
-            default:
-                array6.remove(at: index)
-                break
-        }
         
-        print("removed")
     }
 }

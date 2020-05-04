@@ -196,41 +196,68 @@ extension GameScene: SKPhysicsContactDelegate{
                     matrix[1][index]?.removeFromParent()
                     matrix[1].remove(at: index)
                     print("removed")
+                    // shift down blocks
                     
                     matrix[2][index]?.removeFromParent()
                     matrix[2].remove(at: index)
                     print("removed")
+                    // shift down blocks
                 }
             }
             
             
         }
-        /*
+        
         else if (column == 6){
             // rightmost column
             
-            if (array5.count >= array6.count && array4.count >= array6.count){
+            if (matrix[4].count >= current.count && matrix[3].count >= current.count){
                 // valid for a check
-                let color1 = current[current.count - 1].userData?.value(forKey: "color")
-                let color2 = array4[current.count - 1].userData?.value(forKey: "color")
-                let color3 = array5[current.count - 1].userData?.value(forKey: "color")
+                let color1 = current[current.count - 1]?.userData?.value(forKey: "color")
+                let color2 = matrix[4][current.count - 1]?.userData?.value(forKey: "color")
+                let color3 = matrix[5][current.count - 1]?.userData?.value(forKey: "color")
                 
                 
                 if (isEqual(type: Int.self, a: color1, b: color2) && isEqual(type: Int.self, a: color2, b: color3)){
                     // cancel blocks
-                    removeBlock(array: &current, index: current.count - 1);
-                    removeBlock(array: &array4, index: current.count - 1);
-                    removeBlock(array: &array5, index: current.count - 1);
+                    let index = current.count - 1
+                    current[index]?.removeFromParent()
+                    matrix[column - 1].remove(at: index)
+                    print("removed")
+                    
+                    matrix[4][index]?.removeFromParent()
+                    matrix[4].remove(at: index)
+                    print("removed")
+                    // shift down blocks
+                    
+                    matrix[5][index]?.removeFromParent()
+                    matrix[5].remove(at: index)
+                    print("removed")
+                    // shift down blocks
                 }
             }
             
         } else {
             // middle columns
-            var leftCol = array1
-            var rightCol = array6
             switch(column){
                 case 2:
-                    rightCol = array3
+                    // test for rightside
+                    if (matrix[2].count >= current.count){
+                        // valid for a check
+                        // test for both 123 and 234
+                        if (matrix[0].count >= current.count){
+                             // case 123
+                            
+                        }
+                       
+                        
+                }
+                
+                
+                
+                
+                
+                
                 case 3:
                     leftCol = array2
                     rightCol = array4

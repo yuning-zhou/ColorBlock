@@ -11,6 +11,14 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    enum colorSchemes{
+        static let colors = [
+            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
+            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
+        ]
+    }
+    
     override func didMove(to view: SKView) {
         setPhysics()
         layoutScene()
@@ -24,17 +32,28 @@ class GameScene: SKScene {
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         spawnBlocks()
+        //spawnBlocks()
+        //spawnBlocks()
     }
     
     func spawnBlocks(){
-        let block = SKSpriteNode(imageNamed: "block")
+        let blockColor = Int.random(in: 0 ..< 3)
         
-        block.color = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
         
-        block.size = CGSize(width: frame.size.width/7, height: frame.size.width/7)
+        let block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7, height: self.frame.size.width/7))
+        block.colorBlendFactor = 1.0
+        block.name = "block"
         
-        block.position = CGPoint(x: frame.midX, y: frame.maxY - block.size.width)
+        //block.color = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
         
+        //block.size = CGSize(width: frame.size.width/7, height: frame.size.width/7)
+        
+        // randomize x-position of spawn
+        let index = Int.random(in: 0 ..< 7)
+        let top = frame.maxY - block.size.width*2
+        let xValue = frame.minX + CGFloat(Double(index) + 0.5) * block.size.width
+        
+        block.position = CGPoint(x: xValue, y: top)
         block.physicsBody = SKPhysicsBody(circleOfRadius: block.size.width/2)
         
      

@@ -57,7 +57,7 @@ class GameScene: SKScene {
         let blockColor = Int.random(in: 0 ..< 3)
         
         
-        block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7, height: self.frame.size.width/7))
+        block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7.1, height: self.frame.size.width/7.1))
         block.colorBlendFactor = 1.0
         block.name = "block"
         

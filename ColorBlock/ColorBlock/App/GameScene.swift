@@ -51,8 +51,6 @@ class GameScene: SKScene {
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         spawnBlocks()
-        //spawnBlocks()
-        //spawnBlocks()
     }
     
     func spawnBlocks(){
@@ -61,7 +59,7 @@ class GameScene: SKScene {
         
         block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/7, height: self.frame.size.width/7))
         block.colorBlendFactor = 1.0
-        block.name = "block"
+        //block.name = "block"
         
         //block.color = UIColor(red: 0, green: 1.0, blue: 0, alpha: 1.0)
         
@@ -81,17 +79,19 @@ class GameScene: SKScene {
         //block.physicsBody?.velocity = CGVector(dx: 0, dy: -3)
         
         
-        let edgeFrame = CGRect(origin: CGPoint(x: ((self.view?.frame.minX)!) ,y: (self.view?.frame.minY)!), size: CGSize(width: (self.view?.frame.width)!, height: (self.view?.frame.height)!))
+        let edgeFrame = CGRect(origin: CGPoint(x: ((frame.minX)) ,y: (frame.minY)), size: CGSize(width: (frame.width), height: (frame.height)))
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: edgeFrame)
         self.physicsBody?.restitution = 0.0
         
         
         
         let blockCategory:UInt32 = 0x1
+        let frameCategory:UInt32 = 0x1 << 1
+        self.physicsBody?.categoryBitMask = frameCategory
     
         block.physicsBody?.categoryBitMask = blockCategory
-        block.physicsBody?.contactTestBitMask = blockCategory
-        block.physicsBody?.collisionBitMask = blockCategory
+        block.physicsBody?.contactTestBitMask = blockCategory | frameCategory
+        block.physicsBody?.collisionBitMask = blockCategory | frameCategory
     
         
         addChild(block)
@@ -99,7 +99,9 @@ class GameScene: SKScene {
 }
 
 extension GameScene: SKPhysicsContactDelegate{
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        print(contact)
+        
+        //self.spawnBlocks()
     }
 }

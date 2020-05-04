@@ -17,6 +17,7 @@ class GameScene: SKScene {
     var array4 = [SKSpriteNode]()
     var array5 = [SKSpriteNode]()
     var array6 = [SKSpriteNode]()
+    var column: Int!
     
     enum colorSchemes{
         static let colors = [
@@ -70,10 +71,14 @@ class GameScene: SKScene {
         block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
         block.colorBlendFactor = 1.0
         block.name = "block"
+        let storeInfo = NSMutableDictionary()
+        storeInfo["color"] = blockColor
+        block.userData = storeInfo
         
         
         // randomize x-position of spawn
         let index = Int.random(in: 0 ..< 6)
+        column = index + 1
         let top = frame.maxY - block.size.width*2
         let xValue = frame.minX + CGFloat(Double(index) + 0.8) * block.size.width
         
@@ -127,17 +132,45 @@ extension GameScene: SKPhysicsContactDelegate{
         if (test < block.size.width/3){
             block.physicsBody?.pinned = true
             
-            // implement merging logic
+            // add to array
+            var currentCol = [SKSpriteNode]()
+            switch(column){
+                case 1:
+                    currentCol = array1
+                case 2:
+                    currentCol = array2
+                case 3:
+                    currentCol = array3
+                case 4:
+                    currentCol = array4
+                case 5:
+                    currentCol = array5
+                case 6:
+                    currentCol = array6
+                default:
+                    break
+            }
+            currentCol.append(block)
             
+            //implement merging logic
+            // check vertically
+            checkVertical(current: currentCol)
             
-            
-            
+            // check horizontally
+            checkHorizontal(current: currentCol)
             
             
             
             // call the next block
             self.spawnBlocks()
         }
+        
+    }
+    func checkVertical(current: [SKSpriteNode]){
+        
+    }
+    
+    func checkHorizontal(current: [SKSpriteNode]){
         
     }
 }

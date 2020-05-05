@@ -17,6 +17,8 @@ class GameScene: SKScene {
     var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
     var column: Int!
     var freezeTime: Double!
+    var highScore: SKLabelNode!
+    var score = 0
   
     enum colorSchemes{
         static let colors = [
@@ -65,14 +67,22 @@ class GameScene: SKScene {
    
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
-        
+        highScore = SKLabelNode(fontNamed: "Chalkduster")
+        highScore.text = "Score: \(score)"
+        highScore.horizontalAlignmentMode = .right
+        highScore.position = CGPoint(x: frame.width, y: frame.height - 70)
+        highScore.zPosition = 0
+        highScore.fontSize = 40
+        highScore.fontColor = UIColor.black
+        addChild(highScore)
         freezeTime = 0.5
         spawnBlocks()
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 3)
+        let blockColor = Int.random(in: 0 ..< 6)
         let factor = CGFloat(7)
+        highScore.text = "Score: \(score)"
         if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
@@ -195,6 +205,7 @@ extension GameScene: SKPhysicsContactDelegate{
             for x in matrix[column - 1]{
                 x?.removeFromParent()
                 matrix[column - 1].removeAll()
+                score += 1
             }
             return true
         } else {
@@ -215,6 +226,8 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                     current[current.count - 1]?.removeFromParent()
                     matrix[column - 1].remove(at: matrix[column - 1].count - 1)
+                    
+                    score += 3
                     return true
                 } else {
                     return false
@@ -240,6 +253,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 if (matrix[x].count >= tempCount){
                     matrix[x][tempCount - 1]?.removeFromParent()
                     matrix[x].remove(at: tempCount - 1)
+                    score += 1
                     if (matrix[x].count > 0){
                         for y in matrix[x]{
                             y?.physicsBody?.pinned = false
@@ -322,6 +336,7 @@ extension GameScene: SKPhysicsContactDelegate{
                                    x?.physicsBody?.pinned = false
                                }
                            }
+                        score += 6
                         freezeTime = 1.0
                            
                        }
@@ -340,11 +355,13 @@ extension GameScene: SKPhysicsContactDelegate{
         // remove self
         current[current.count - 1]?.removeFromParent()
         matrix[column - 1].remove(at: tempCount - 1)
+        score += 1
         
         // remove bottom
         if (matrix[column - 1].count > 0){
             matrix[column - 1][matrix[column - 1].count - 1]?.removeFromParent()
             matrix[column - 1].remove(at: matrix[column - 1].count - 1)
+            score += 1
         }
         
         // remove left 3 blocks
@@ -357,15 +374,18 @@ extension GameScene: SKPhysicsContactDelegate{
                         if (matrix[column - 1].count > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: matrix[column - 2].count - 1)
+                            score += 1
                         }
                     case 0:
                         // need to remove bottom-left and left bocks
                         matrix[column - 2][tempCount - 1]?.removeFromParent()
                         matrix[column - 2].remove(at: matrix[column - 2].count - 1)
+                        score += 1
                     
                         if (matrix[column - 1].count > 1){
                             matrix[column - 2][matrix[column - 2].count - 1]?.removeFromParent()
                             matrix[column - 2].remove(at: matrix[column - 2].count - 1)
+                            score += 1
                         }
                         
                     default:
@@ -377,10 +397,13 @@ extension GameScene: SKPhysicsContactDelegate{
                         matrix[column - 2].remove(at: tempCount - 1)
                         freezeTime = 2.0
                         
+                        score += 2
+                        
                         if (matrix[column - 1].count > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: tempCount - 2)
                             freezeTime = 3.0
+                            score += 1
                         }
                 }
                 
@@ -401,15 +424,18 @@ extension GameScene: SKPhysicsContactDelegate{
                         if (matrix[column - 1].count > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: matrix[column].count - 1)
+                            score += 1
                         }
                     case 0:
                         // need to remove bottom-right and right bocks
                         matrix[column][tempCount - 1]?.removeFromParent()
                         matrix[column].remove(at: matrix[column].count - 1)
-                    
+                        score += 1
+                        
                         if (matrix[column - 1].count > 1){
                             matrix[column][matrix[column].count - 1]?.removeFromParent()
                             matrix[column].remove(at: matrix[column].count - 1)
+                            score += 1
                         }
                         
                     default:
@@ -420,11 +446,13 @@ extension GameScene: SKPhysicsContactDelegate{
                         matrix[column][tempCount - 1]?.removeFromParent()
                         matrix[column].remove(at: tempCount - 1)
                         freezeTime = 2.0
+                        score += 2
                         
                         if (matrix[column - 1].count > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: tempCount - 2)
                             freezeTime = 3.0
+                            score += 1
                         }
                 }
                 if (matrix[column].count > 0){
@@ -437,6 +465,7 @@ extension GameScene: SKPhysicsContactDelegate{
         }
     }
     
+    // jump to pop up view controller, code snipet from https://riptutorial.com/sprite-kit/example/29867/multiple-uiviewcontroller-in-a-game--how-to-jump-from-the-scene-to-a-viewcontroller
     func gameOver(){
         self.run(SKAction.wait(forDuration: 1),completion:{[unowned self] in
             guard let delegate = self.delegate else { return }

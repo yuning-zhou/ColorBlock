@@ -17,8 +17,9 @@ class GameScene: SKScene {
     var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
     var column: Int!
     var freezeTime: Double!
-    var highScore: SKLabelNode!
+    var lastScore: SKLabelNode!
     var score = 0
+    var highScore: Int!
   
     enum colorSchemes{
         static let colors = [
@@ -67,22 +68,32 @@ class GameScene: SKScene {
    
     func layoutScene(){
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
-        highScore = SKLabelNode(fontNamed: "Chalkduster")
-        highScore.text = "Score: \(score)"
-        highScore.horizontalAlignmentMode = .right
-        highScore.position = CGPoint(x: frame.width, y: frame.height - 70)
-        highScore.zPosition = 0
-        highScore.fontSize = 40
-        highScore.fontColor = UIColor.black
-        addChild(highScore)
         freezeTime = 0.5
+        
+        lastScore = SKLabelNode(fontNamed: "Chalkduster")
+        lastScore.text = "Score: \(score)"
+        lastScore.horizontalAlignmentMode = .right
+        lastScore.position = CGPoint(x: frame.width, y: frame.height - 70)
+        lastScore.zPosition = 0
+        lastScore.fontSize = 40
+        lastScore.fontColor = UIColor.black
+        addChild(lastScore)
+        
+        let defaults = UserDefaults.standard
+        if (defaults.string(forKey: "High_Score") != nil){
+            highScore = Int(defaults.string(forKey: "High_Score")!)
+            print(highScore)
+        } else {
+            highScore = 0
+        }
+        
         spawnBlocks()
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 6)
+        let blockColor = Int.random(in: 0 ..< 3)
         let factor = CGFloat(7)
-        highScore.text = "Score: \(score)"
+        lastScore.text = "Score: \(score)"
         if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
@@ -246,6 +257,7 @@ extension GameScene: SKPhysicsContactDelegate{
         if (block.name == "horizontalRainbow") {
             current[current.count - 1]?.removeFromParent()
             matrix[column - 1].remove(at: tempCount - 1)
+            score += 1
             
             for x in (0..<6){
                 // remove all blocks in the same line if not nil
@@ -467,6 +479,16 @@ extension GameScene: SKPhysicsContactDelegate{
     
     // jump to pop up view controller, code snipet from https://riptutorial.com/sprite-kit/example/29867/multiple-uiviewcontroller-in-a-game--how-to-jump-from-the-scene-to-a-viewcontroller
     func gameOver(){
+        let myString = String(score) // This String is you high score as a String
+        let defaults = UserDefaults.standard
+       
+        defaults.set(myString, forKey : "Last_Score")
+        
+        //print(highScore)
+        if (score - highScore >= 0){
+            defaults.set(myString, forKey : "High_Score")
+        }
+        
         self.run(SKAction.wait(forDuration: 1),completion:{[unowned self] in
             guard let delegate = self.delegate else { return }
             self.view?.presentScene(nil)

@@ -9,11 +9,33 @@
 import UIKit
 
 class ScoreViewController: UIViewController {
-
+    @IBOutlet weak var ScoreLabel: UILabel!
+    @IBOutlet weak var LastLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        let defaults = UserDefaults.standard
+
+        let HighScore = defaults.string(forKey: "High_Score")
         // Do any additional setup after loading the view.
+        
+        if (HighScore == nil){
+            ScoreLabel.text = "High Score: 0"
+        } else {
+            ScoreLabel.text = "High Score: \(HighScore.unsafelyUnwrapped)"
+        }
+        
+        let LastScore = defaults.string(forKey: "Last_Score")
+        // Do any additional setup after loading the view.
+        
+        if (LastScore == nil){
+            LastLabel.text = "Last Score: 0"
+        } else {
+            LastLabel.text = "Last Score: \(LastScore.unsafelyUnwrapped)"
+        }
+        
     }
     
 

@@ -107,9 +107,7 @@ class GameScene: SKScene {
      
         block.physicsBody?.friction = 0.0
         block.physicsBody?.restitution = 0.0
-        //block.physicsBody?.usesPreciseCollisionDetection = true
-        
-        //block.physicsBody?.velocity = CGVector(dx: 0, dy: -3)
+    
         
         
         let edgeFrame = CGRect(origin: CGPoint(x: frame.minX, y: frame.minY), size: CGSize(width: (self.view?.frame.width)!, height: (self.view?.frame.height)!))

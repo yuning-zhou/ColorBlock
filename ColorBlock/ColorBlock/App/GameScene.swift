@@ -91,16 +91,16 @@ class GameScene: SKScene {
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 6)
+        let blockColor = Int.random(in: 0 ..< 4)
         let factor = CGFloat(7)
         lastScore.text = "Score: \(score)"
-        if blockColor == 3 {
+        if blockColor == 6 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
-        } else if blockColor == 4 {
+        } else if blockColor == 7 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "hRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "horizontalRainbow"
-        } else if blockColor == 5 {
+        } else if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "boom"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "boom"
         } else {
@@ -383,7 +383,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 switch(distance){
                     case -1:
                         // only need to remove bottom-left block
-                        if (matrix[column - 1].count > 1){
+                        if (tempCount > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: matrix[column - 2].count - 1)
                             score += 1
@@ -393,8 +393,8 @@ extension GameScene: SKPhysicsContactDelegate{
                         matrix[column - 2][tempCount - 1]?.removeFromParent()
                         matrix[column - 2].remove(at: matrix[column - 2].count - 1)
                         score += 1
-                    
-                        if (matrix[column - 1].count > 1){
+                        
+                        if (tempCount > 1){
                             matrix[column - 2][matrix[column - 2].count - 1]?.removeFromParent()
                             matrix[column - 2].remove(at: matrix[column - 2].count - 1)
                             score += 1
@@ -411,7 +411,7 @@ extension GameScene: SKPhysicsContactDelegate{
                         
                         score += 2
                         
-                        if (matrix[column - 1].count > 1){
+                        if (tempCount > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: tempCount - 2)
                             freezeTime = 3.0
@@ -427,13 +427,13 @@ extension GameScene: SKPhysicsContactDelegate{
             }
         }
         // remove right 3 blocks
-        if (column < 5) {
+        if (column < 6) {
             let distance = matrix[column].count - tempCount
             if (distance >= -1){
                 switch(distance){
                     case -1:
                         // only need to remove bottom-right block
-                        if (matrix[column - 1].count > 1){
+                        if (tempCount > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: matrix[column].count - 1)
                             score += 1
@@ -443,8 +443,8 @@ extension GameScene: SKPhysicsContactDelegate{
                         matrix[column][tempCount - 1]?.removeFromParent()
                         matrix[column].remove(at: matrix[column].count - 1)
                         score += 1
-                        
-                        if (matrix[column - 1].count > 1){
+                       
+                        if (tempCount > 1){
                             matrix[column][matrix[column].count - 1]?.removeFromParent()
                             matrix[column].remove(at: matrix[column].count - 1)
                             score += 1
@@ -460,7 +460,7 @@ extension GameScene: SKPhysicsContactDelegate{
                         freezeTime = 2.0
                         score += 2
                         
-                        if (matrix[column - 1].count > 1){
+                        if (tempCount > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: tempCount - 2)
                             freezeTime = 3.0

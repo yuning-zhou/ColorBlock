@@ -20,6 +20,8 @@ class GameScene: SKScene {
     var lastScore: SKLabelNode!
     var score = 0
     var highScore: Int!
+    var difficulty: Int!
+    var difficultyFactor : Double!
   
     enum colorSchemes{
         static let colors = [
@@ -62,7 +64,21 @@ class GameScene: SKScene {
     }
     
     func setPhysics(){
-        physicsWorld.gravity = CGVector(dx: 0, dy: -1)
+        let defaults = UserDefaults.standard
+        if (defaults.string(forKey: "difficulty") != nil){
+            difficulty = Int(defaults.string(forKey: "difficulty")!)
+        } else {
+            difficulty = 0
+        }
+        if (difficulty > 0) {
+            // hardcore mode
+            difficultyFactor = 0.4
+            physicsWorld.gravity = CGVector(dx: 0, dy: -2)
+        } else {
+            difficultyFactor = 0
+            physicsWorld.gravity = CGVector(dx: 0, dy: -1)
+        }
+        
         physicsWorld.contactDelegate = self
     }
    
@@ -272,7 +288,7 @@ extension GameScene: SKPhysicsContactDelegate{
                     }
                 }
             }
-            freezeTime = 1.0
+            freezeTime = 1.0 - Double(difficultyFactor)
         } else {
             // check if all columns are filled
                    var fullLine = true
@@ -348,7 +364,7 @@ extension GameScene: SKPhysicsContactDelegate{
                                }
                            }
                         score += 6
-                        freezeTime = 1.0
+                        freezeTime = 1.0 - Double(difficultyFactor)
                            
                        }
                    }
@@ -406,14 +422,14 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                         matrix[column - 2][tempCount - 1]?.removeFromParent()
                         matrix[column - 2].remove(at: tempCount - 1)
-                        freezeTime = 2.0
+                        freezeTime = 2.0 - Double(difficultyFactor)
                         
                         score += 2
                         
                         if (tempCount > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: tempCount - 2)
-                            freezeTime = 3.0
+                            freezeTime = 3.0 - Double(difficultyFactor)
                             score += 1
                         }
                 }
@@ -456,13 +472,13 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                         matrix[column][tempCount - 1]?.removeFromParent()
                         matrix[column].remove(at: tempCount - 1)
-                        freezeTime = 2.0
+                        freezeTime = 2.0 - Double(difficultyFactor)
                         score += 2
                         
                         if (tempCount > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: tempCount - 2)
-                            freezeTime = 3.0
+                            freezeTime = 3.0 - Double(difficultyFactor)
                             score += 1
                         }
                 }

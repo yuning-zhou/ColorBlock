@@ -22,6 +22,7 @@
 		133C5BD52460D0AF008E4D2D /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */; };
 		133C5BD724632CE8008E4D2D /* DifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */; };
 		133C5BD9246358CE008E4D2D /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD8246358CE008E4D2D /* ColorViewController.swift */; };
+		133C5BDB24638178008E4D2D /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BDA24638178008E4D2D /* PauseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopUpViewController.swift; path = ColorBlock/Assets/PopUpViewController.swift; sourceTree = SOURCE_ROOT; };
 		133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DifficultyViewController.swift; path = ColorBlock/Assets/DifficultyViewController.swift; sourceTree = SOURCE_ROOT; };
 		133C5BD8246358CE008E4D2D /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorViewController.swift; path = ColorBlock/App/ColorViewController.swift; sourceTree = SOURCE_ROOT; };
+		133C5BDA24638178008E4D2D /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PauseViewController.swift; path = ColorBlock/App/PauseViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 		133C5BCF245F86A8008E4D2D /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				133C5BDA24638178008E4D2D /* PauseViewController.swift */,
 				133C5BD8246358CE008E4D2D /* ColorViewController.swift */,
 				133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */,
 				133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */,
@@ -304,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				133C5BDB24638178008E4D2D /* PauseViewController.swift in Sources */,
 				133C5B5A245F7BE1008E4D2D /* GameScene.swift in Sources */,
 				133C5B5C245F7BE1008E4D2D /* GameViewController.swift in Sources */,
 				133C5B8A245F7FA2008E4D2D /* ScoreViewController.swift in Sources */,

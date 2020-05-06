@@ -36,6 +36,10 @@ class GameViewController: UIViewController, TransitionDelegate {
         }
     }
     
+    @IBAction func unwindToGameViewController(segue: UIStoryboardSegue){
+        gameScene.resumeGame()
+    }
+    
     func goToPopUpView(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         guard  let storyboard = appDelegate.window?.rootViewController?.storyboard else { return }

@@ -578,7 +578,9 @@ extension GameScene: SKPhysicsContactDelegate{
         }
     }
     
-    
+    func resumeGame(){
+        scene?.view?.isPaused = false
+    }
     
     
 }

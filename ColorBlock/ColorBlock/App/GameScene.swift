@@ -91,7 +91,7 @@ class GameScene: SKScene {
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 3)
+        let blockColor = Int.random(in: 0 ..< 6)
         let factor = CGFloat(7)
         lastScore.text = "Score: \(score)"
         if blockColor == 3 {

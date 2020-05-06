@@ -21,6 +21,7 @@
 		133C5BCE245F854B008E4D2D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BCD245F854B008E4D2D /* MainViewController.swift */; };
 		133C5BD52460D0AF008E4D2D /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */; };
 		133C5BD724632CE8008E4D2D /* DifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */; };
+		133C5BD9246358CE008E4D2D /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD8246358CE008E4D2D /* ColorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		133C5BCD245F854B008E4D2D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopUpViewController.swift; path = ColorBlock/Assets/PopUpViewController.swift; sourceTree = SOURCE_ROOT; };
 		133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DifficultyViewController.swift; path = ColorBlock/Assets/DifficultyViewController.swift; sourceTree = SOURCE_ROOT; };
+		133C5BD8246358CE008E4D2D /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorViewController.swift; path = ColorBlock/App/ColorViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		133C5BCF245F86A8008E4D2D /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				133C5BD8246358CE008E4D2D /* ColorViewController.swift */,
 				133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */,
 				133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */,
 				133C5BCD245F854B008E4D2D /* MainViewController.swift */,
@@ -309,6 +312,7 @@
 				133C5B8E245F7FC2008E4D2D /* AchievementsViewController.swift in Sources */,
 				133C5B8C245F7FB2008E4D2D /* SettingsViewController.swift in Sources */,
 				133C5BCE245F854B008E4D2D /* MainViewController.swift in Sources */,
+				133C5BD9246358CE008E4D2D /* ColorViewController.swift in Sources */,
 				133C5BD52460D0AF008E4D2D /* PopUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -79,13 +79,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eM-1i-DWN">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="pauseButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eM-1i-DWN">
                                 <rect key="frame" x="20" y="44" width="91" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <segue destination="2ui-Gm-jzf" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="ijy-v9-1Vj"/>
+                                    <action selector="pausePressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="32Q-xY-5h2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -93,9 +93,11 @@
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <navigationItem key="navigationItem" id="OdK-W2-Du4"/>
+                    <connections>
+                        <outlet property="pauseButton" destination="0eM-1i-DWN" id="sMR-Oz-2zh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <exit id="2ui-Gm-jzf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1398.5507246376812" y="77.678571428571431"/>
         </scene>
@@ -124,23 +126,23 @@
                                     <action selector="indexChanged:" destination="cbt-qu-OWC" eventType="valueChanged" id="8UD-4a-kHU"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8Z-BH-MEr">
-                                <rect key="frame" x="221" y="458" width="91" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelPressed:" destination="cbt-qu-OWC" eventType="touchUpInside" id="J8U-78-Ocz"/>
-                                    <segue destination="fSz-we-btG" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="V6j-Cm-mt3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYN-Ut-msc">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfZ-Hb-Ca6">
                                 <rect key="frame" x="103" y="458" width="91" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
-                                    <segue destination="fSz-we-btG" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="BKy-bH-qeV"/>
+                                    <segue destination="fSz-we-btG" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="SQ9-4f-ocf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hek-DO-Zd1">
+                                <rect key="frame" x="221" y="458" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="cbt-qu-OWC" eventType="touchUpInside" id="DX4-CE-trj"/>
+                                    <segue destination="fSz-we-btG" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="qqT-LE-ABV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -154,7 +156,6 @@
                         <viewLayoutGuide key="safeArea" id="U1m-Tn-emN"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButton" destination="d8Z-BH-MEr" id="Ikl-Wc-9Iy"/>
                         <outlet property="difficultySwitch" destination="3Yx-uG-zYr" id="6nZ-5I-TIX"/>
                     </connections>
                 </viewController>
@@ -162,6 +163,77 @@
                 <exit id="fSz-we-btG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="694.20289855072474" y="769.41964285714278"/>
+        </scene>
+        <!--Color View Controller-->
+        <scene sceneID="D4p-AI-twq">
+            <objects>
+                <viewController id="kQe-IY-rCC" customClass="ColorViewController" customModule="ColorBlock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VRm-OA-YN4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Color Selector" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yA-PQ-5F6">
+                                <rect key="frame" x="103" y="142" width="209" height="80"/>
+                                <color key="backgroundColor" red="0.69065280129999995" green="1" blue="0.30527043390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="otH-Hi-r5B">
+                                <rect key="frame" x="79" y="278" width="256" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Theme 1"/>
+                                    <segment title="Theme 2"/>
+                                    <segment title="Theme 3"/>
+                                </segments>
+                                <connections>
+                                    <action selector="indexChanged:" destination="kQe-IY-rCC" eventType="valueChanged" id="FlG-QU-COw"/>
+                                    <action selector="indexChanged:" destination="cbt-qu-OWC" eventType="valueChanged" id="j9I-g6-kv1"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-pm-zge">
+                                <rect key="frame" x="79" y="357" width="256" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="StO-wn-auu">
+                                <rect key="frame" x="79" y="700" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <segue destination="GyU-G4-XSP" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="XBn-Br-SGc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldL-mn-pQh">
+                                <rect key="frame" x="244" y="700" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="kQe-IY-rCC" eventType="touchUpInside" id="akh-Qy-ImL"/>
+                                    <action selector="cancelPressed:" destination="cbt-qu-OWC" eventType="touchUpInside" id="nxf-Fw-gn0"/>
+                                    <segue destination="GyU-G4-XSP" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="YVx-zw-aPb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6yA-PQ-5F6" firstAttribute="centerX" secondItem="Q8h-NC-N07" secondAttribute="centerX" id="Gg4-43-ecF"/>
+                            <constraint firstItem="6yA-PQ-5F6" firstAttribute="top" secondItem="Q8h-NC-N07" secondAttribute="top" constant="184" id="Zxe-cz-Z3e"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Q8h-NC-N07"/>
+                    </view>
+                    <connections>
+                        <outlet property="colorSwitch" destination="otH-Hi-r5B" id="aPW-Uc-4dU"/>
+                        <outlet property="colorView" destination="0e9-pm-zge" id="Yf7-uZ-uSp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WKi-tf-qi6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="GyU-G4-XSP" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="694.20289855072474" y="1467.8571428571429"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="8KJ-iL-v8L">
@@ -209,6 +281,9 @@
                                 <state key="normal" title="Color">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="kQe-IY-rCC" kind="presentation" id="xOW-fg-7CF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

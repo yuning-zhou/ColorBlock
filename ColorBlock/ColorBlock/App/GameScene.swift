@@ -11,7 +11,6 @@ protocol TransitionDelegate: SKSceneDelegate {
     func goToPopUpView()
 }
 
-
 class GameScene: SKScene {
     var block: SKSpriteNode!
     var matrix = [[SKSpriteNode?]](repeating: [SKSpriteNode?](repeating: nil, count: 0), count: 6)
@@ -22,9 +21,32 @@ class GameScene: SKScene {
     var highScore: Int!
     var difficulty: Int!
     var difficultyFactor : Double!
+    var theme: Int!
   
     enum colorSchemes{
-        static let colors = [
+        static let special = [
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        ]
+        
+        static let theme1 = [
+            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
+            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        ]
+        
+        static let theme2 = [
+            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
+            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        ]
+        
+        static let theme3 = [
             UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
             UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
             UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
@@ -102,30 +124,59 @@ class GameScene: SKScene {
             highScore = 0
         }
         
+        if (defaults.string(forKey: "theme") != nil){
+            theme = Int(defaults.string(forKey: "theme")!)
+        } else {
+            theme = 0
+        }
+        
         spawnBlocks()
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 6)
+        var blockColor: Int!
         let factor = CGFloat(7)
         lastScore.text = "Score: \(score)"
+        
+        if (difficulty > 0) {
+            // difficult mode
+            blockColor = Int.random(in: 0 ..< 20)
+        } else {
+            blockColor = Int.random(in: 0 ..< 10)
+        }
+        
         if blockColor == 3 {
-            block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.special[0], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
         } else if blockColor == 4 {
-            block = SKSpriteNode(texture: SKTexture(imageNamed: "hRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "hRainbow"), color: colorSchemes.special[0], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "horizontalRainbow"
         } else if blockColor == 5 {
-            block = SKSpriteNode(texture: SKTexture(imageNamed: "boom"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+            block = SKSpriteNode(texture: SKTexture(imageNamed: "boom"), color: colorSchemes.special[0], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "boom"
         } else {
-            block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
-            block.name = "block"
+            switch (theme)
+            {
+                case 0:
+                    block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.theme1[blockColor % 3], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+                    block.name = "block"
+                case 1:
+                    block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.theme2[blockColor % 3], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+                    block.name = "block"
+                case 2:
+                    block = SKSpriteNode(texture: SKTexture(imageNamed: "block"), color: colorSchemes.theme3[blockColor % 3], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
+                    block.name = "block"
+                default:
+                    break
+            }
+            
             
         }
+        
+        
         block.colorBlendFactor = 1.0
         let storeInfo = NSMutableDictionary()
-        storeInfo["color"] = blockColor
+        storeInfo["color"] = blockColor % 3
         block.userData = storeInfo
         
         
@@ -181,7 +232,9 @@ extension GameScene: SKPhysicsContactDelegate{
         let test = CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
         
         if (test < block.size.width/3){
+            
             block.physicsBody?.pinned = true
+            block.physicsBody?.allowsRotation = false
             matrix[column - 1].append(block)
             
             //implement merging logic
@@ -218,6 +271,7 @@ extension GameScene: SKPhysicsContactDelegate{
         }
         
     }
+    
     func checkVertical() -> Bool{
         let current = matrix[column - 1]
         
@@ -288,7 +342,7 @@ extension GameScene: SKPhysicsContactDelegate{
                     }
                 }
             }
-            freezeTime = 1.0 - Double(difficultyFactor)
+            freezeTime = 1.0 - Double(difficulty) * 0.4
         } else {
             // check if all columns are filled
                    var fullLine = true
@@ -364,7 +418,7 @@ extension GameScene: SKPhysicsContactDelegate{
                                }
                            }
                         score += 6
-                        freezeTime = 1.0 - Double(difficultyFactor)
+                        freezeTime = 1.0 - Double(difficulty) * 0.4
                            
                        }
                    }
@@ -422,14 +476,14 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                         matrix[column - 2][tempCount - 1]?.removeFromParent()
                         matrix[column - 2].remove(at: tempCount - 1)
-                        freezeTime = 2.0 - Double(difficultyFactor)
+                        freezeTime = 2.0 - Double(difficulty) * 0.4 / 2
                         
                         score += 2
                         
                         if (tempCount > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: tempCount - 2)
-                            freezeTime = 3.0 - Double(difficultyFactor)
+                            freezeTime = 3.0 - Double(difficulty) * 0.4 / 3
                             score += 1
                         }
                 }
@@ -472,13 +526,13 @@ extension GameScene: SKPhysicsContactDelegate{
                     
                         matrix[column][tempCount - 1]?.removeFromParent()
                         matrix[column].remove(at: tempCount - 1)
-                        freezeTime = 2.0 - Double(difficultyFactor)
+                        freezeTime = 2.0 - Double(difficulty) * 0.4 / 2
                         score += 2
                         
                         if (tempCount > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: tempCount - 2)
-                            freezeTime = 3.0 - Double(difficultyFactor)
+                            freezeTime = 3.0 - Double(difficulty) / 0.4 * 3
                             score += 1
                         }
                 }
@@ -517,6 +571,14 @@ extension GameScene: SKPhysicsContactDelegate{
 
         return a == b
     }
+    
+    func pauseGame(sender: UIButton) {
+        if (sender == GameViewController.instance.pauseButton) {
+            scene?.view?.isPaused = true
+        }
+    }
+    
+    
     
     
 }

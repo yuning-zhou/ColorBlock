@@ -12,8 +12,6 @@ class DifficultyViewController: UIViewController {
 
     @IBOutlet weak var difficultySwitch: UISegmentedControl!
     
-    @IBOutlet weak var cancelButton: UIButton!
-    
     var initialValue: Int!
     
     override func viewDidLoad() {

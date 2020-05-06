@@ -11,8 +11,13 @@ import SpriteKit
 
 class GameViewController: UIViewController, TransitionDelegate {
 
+    static var instance: GameViewController!
+    @IBOutlet weak var pauseButton: UIButton!
+    var gameScene: GameScene!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        GameViewController.instance = self
         
         if let view = self.view as! SKView? {
             let scene = GameScene(size: view.bounds.size)
@@ -21,13 +26,12 @@ class GameViewController: UIViewController, TransitionDelegate {
                 scene.delegate = self as TransitionDelegate
                 // Present the scene
                 view.presentScene(scene)
-            
+                gameScene = scene
             
             view.ignoresSiblingOrder = true
             
             view.showsFPS = true
             view.showsNodeCount = true
-            
             
         }
     }
@@ -37,8 +41,11 @@ class GameViewController: UIViewController, TransitionDelegate {
         guard  let storyboard = appDelegate.window?.rootViewController?.storyboard else { return }
         let vc = storyboard.instantiateViewController(withIdentifier: "popUpView")
         self.present(vc, animated: true, completion: nil)
-        
     }
-
+    
+    @IBAction func pausePressed(_ sender: UIButton){
+        gameScene.pauseGame(sender: pauseButton)
+    }
+    
 
 }

@@ -82,7 +82,6 @@ class GameScene: SKScene {
         let defaults = UserDefaults.standard
         if (defaults.string(forKey: "High_Score") != nil){
             highScore = Int(defaults.string(forKey: "High_Score")!)
-            print(highScore)
         } else {
             highScore = 0
         }
@@ -91,16 +90,16 @@ class GameScene: SKScene {
     }
     
     func spawnBlocks(){
-        let blockColor = Int.random(in: 0 ..< 4)
+        let blockColor = Int.random(in: 0 ..< 6)
         let factor = CGFloat(7)
         lastScore.text = "Score: \(score)"
-        if blockColor == 6 {
+        if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
-        } else if blockColor == 7 {
+        } else if blockColor == 4 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "hRainbow"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "horizontalRainbow"
-        } else if blockColor == 3 {
+        } else if blockColor == 5 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "boom"), color: colorSchemes.colors[blockColor], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "boom"
         } else {

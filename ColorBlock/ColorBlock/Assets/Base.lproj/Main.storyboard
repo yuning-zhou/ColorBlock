@@ -339,7 +339,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Default"/>
                                 <connections>
-                                    <action selector="colorChangedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="MSY-pb-qdQ"/>
+                                    <action selector="buttonPressedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="9Lu-cO-rs6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="bubble" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pB-bZ-em7">
@@ -349,7 +349,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Bubble"/>
                                 <connections>
-                                    <action selector="colorChangedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="IUS-JO-Gql"/>
+                                    <action selector="buttonPressedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="6QF-ZX-Xzu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="alien" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLT-FW-o7Q">
@@ -359,7 +359,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Alien"/>
                                 <connections>
-                                    <action selector="colorChangedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="nKA-EH-UXM"/>
+                                    <action selector="buttonPressedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="TlW-Kp-F4y"/>
                                 </connections>
                             </button>
                         </subviews>

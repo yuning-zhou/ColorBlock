@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SoundViewController: UIViewController {
 
@@ -15,6 +16,8 @@ class SoundViewController: UIViewController {
     @IBOutlet weak var bubbleButton: UIButton!
     @IBOutlet weak var alienButton: UIButton!
     var selected: UIButton!
+    var player: AVAudioPlayer?
+    var url: URL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,28 +48,38 @@ class SoundViewController: UIViewController {
         initialValue = sound
     }
     
-    @IBAction func colorChanged(sender: UIButton) {
+    @IBAction func buttonPressed(sender: UIButton) {
+        
         let defaults = UserDefaults.standard
+        selected.backgroundColor = .green
         
         switch sender.titleLabel?.text
         {
         case "Default":
+            url = Bundle.main.url(forResource: "hit", withExtension: "wav")
+            player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
             defaults.set(String(0), forKey : "sound")
             sender.backgroundColor = .red
         case "Bubble":
+            url = Bundle.main.url(forResource: "bubble", withExtension: "mp3")
+            player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             defaults.set(String(1), forKey : "sound")
             sender.backgroundColor = .red
         case "Alien":
+            url = Bundle.main.url(forResource: "alien", withExtension: "wav")
+            player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
             defaults.set(String(2), forKey : "sound")
             sender.backgroundColor = .red
         default:
             break
         }
+        player?.play()
+        selected = sender
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
         let defaults = UserDefaults.standard
-        defaults.set(String(initialValue), forKey : "color")
+        defaults.set(String(initialValue), forKey : "sound")
         
     }
 

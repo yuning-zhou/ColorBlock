@@ -23,6 +23,7 @@ class GameScene: SKScene {
     var difficultyFactor : Double!
     var theme: Int!
     var soundEffect: SKAction! = nil
+    var hitSount: Int!
   
     enum colorSchemes{
         static let special = [
@@ -130,7 +131,26 @@ class GameScene: SKScene {
         } else {
             theme = 0
         }
-        soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
+        
+        if (defaults.string(forKey: "sound") != nil){
+            hitSount = Int(defaults.string(forKey: "sound")!)
+        } else {
+            hitSount = 0
+        }
+        
+        switch hitSount
+        {
+            case 0:
+                soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
+            case 1:
+                print("yes")
+                soundEffect = SKAction.playSoundFileNamed("bubble.mp3", waitForCompletion: false)
+            case 2:
+                soundEffect = SKAction.playSoundFileNamed("alien.wav", waitForCompletion: false)
+            default:
+                break
+        }
+        
         spawnBlocks()
     }
     
@@ -236,7 +256,17 @@ extension GameScene: SKPhysicsContactDelegate{
             
             // hit bottom
             // process sound
-            soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
+            switch hitSount
+            {
+                case 0:
+                    soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
+                case 1:
+                    soundEffect = SKAction.playSoundFileNamed("bubble.mp3", waitForCompletion: false)
+                case 2:
+                    soundEffect = SKAction.playSoundFileNamed("alien.wav", waitForCompletion: false)
+                default:
+                    break
+            }
             block.run(soundEffect)
             
             // process physicsbody

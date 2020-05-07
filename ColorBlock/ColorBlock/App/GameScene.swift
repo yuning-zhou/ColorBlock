@@ -130,7 +130,7 @@ class GameScene: SKScene {
         } else {
             theme = 0
         }
-        
+        soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
         spawnBlocks()
     }
     

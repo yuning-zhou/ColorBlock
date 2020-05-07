@@ -63,6 +63,7 @@ class ColorViewController: UIViewController {
     @IBAction func cancelPressed(_ sender: Any) {
         let defaults = UserDefaults.standard
         defaults.set(String(initialValue), forKey : "color")
+        
     }
     
 }

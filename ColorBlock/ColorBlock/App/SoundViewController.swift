@@ -57,22 +57,20 @@ class SoundViewController: UIViewController {
         {
         case "Default":
             url = Bundle.main.url(forResource: "hit", withExtension: "wav")
-            player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
             defaults.set(String(0), forKey : "sound")
             sender.backgroundColor = .red
         case "Bubble":
-            url = Bundle.main.url(forResource: "bubble", withExtension: "mp3")
-            player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            url = Bundle.main.url(forResource: "bubble", withExtension: "wav")
             defaults.set(String(1), forKey : "sound")
             sender.backgroundColor = .red
         case "Alien":
             url = Bundle.main.url(forResource: "alien", withExtension: "wav")
-            player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
             defaults.set(String(2), forKey : "sound")
             sender.backgroundColor = .red
         default:
             break
         }
+        player = try! AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
         player?.play()
         selected = sender
     }

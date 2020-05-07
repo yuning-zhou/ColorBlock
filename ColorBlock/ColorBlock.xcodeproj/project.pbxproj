@@ -28,8 +28,9 @@
 		133C5BE124639096008E4D2D /* cancel.flac in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE024639096008E4D2D /* cancel.flac */; };
 		133C5BE3246391A8008E4D2D /* rainbow.flac in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE2246391A8008E4D2D /* rainbow.flac */; };
 		133C5BE72463A082008E4D2D /* boom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE62463A082008E4D2D /* boom.wav */; };
-		133C5BE92463A3F2008E4D2D /* bubble.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE82463A3F1008E4D2D /* bubble.mp3 */; };
 		133C5BED2463BFEB008E4D2D /* alien.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BEC2463BFEA008E4D2D /* alien.wav */; };
+		133C5BEF2463C2BF008E4D2D /* gameover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BEE2463C2BF008E4D2D /* gameover.wav */; };
+		133C5BF12463C34A008E4D2D /* bubble.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BF02463C34A008E4D2D /* bubble.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +78,9 @@
 		133C5BE024639096008E4D2D /* cancel.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = cancel.flac; sourceTree = "<group>"; };
 		133C5BE2246391A8008E4D2D /* rainbow.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = rainbow.flac; sourceTree = "<group>"; };
 		133C5BE62463A082008E4D2D /* boom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boom.wav; sourceTree = "<group>"; };
-		133C5BE82463A3F1008E4D2D /* bubble.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bubble.mp3; sourceTree = "<group>"; };
 		133C5BEC2463BFEA008E4D2D /* alien.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien.wav; sourceTree = "<group>"; };
+		133C5BEE2463C2BF008E4D2D /* gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameover.wav; sourceTree = "<group>"; };
+		133C5BF02463C34A008E4D2D /* bubble.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bubble.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,7 +177,8 @@
 		133C5BD0245F86E1008E4D2D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				133C5BE82463A3F1008E4D2D /* bubble.mp3 */,
+				133C5BF02463C34A008E4D2D /* bubble.wav */,
+				133C5BEE2463C2BF008E4D2D /* gameover.wav */,
 				133C5B5D245F7BE1008E4D2D /* Main.storyboard */,
 				133C5BE2246391A8008E4D2D /* rainbow.flac */,
 				133C5BE62463A082008E4D2D /* boom.wav */,
@@ -301,12 +304,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				133C5BEF2463C2BF008E4D2D /* gameover.wav in Resources */,
 				133C5BDF24638E85008E4D2D /* hit.wav in Resources */,
 				133C5B5F245F7BE1008E4D2D /* Main.storyboard in Resources */,
 				133C5BED2463BFEB008E4D2D /* alien.wav in Resources */,
 				133C5BE72463A082008E4D2D /* boom.wav in Resources */,
+				133C5BF12463C34A008E4D2D /* bubble.wav in Resources */,
 				133C5BE3246391A8008E4D2D /* rainbow.flac in Resources */,
-				133C5BE92463A3F2008E4D2D /* bubble.mp3 in Resources */,
 				133C5BE124639096008E4D2D /* cancel.flac in Resources */,
 				133C5B61245F7BE4008E4D2D /* Assets.xcassets in Resources */,
 				133C5B64245F7BE4008E4D2D /* LaunchScreen.storyboard in Resources */,

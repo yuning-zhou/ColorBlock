@@ -144,7 +144,7 @@ class GameScene: SKScene {
                 soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
             case 1:
                 print("yes")
-                soundEffect = SKAction.playSoundFileNamed("bubble.mp3", waitForCompletion: false)
+                soundEffect = SKAction.playSoundFileNamed("bubble.wav", waitForCompletion: false)
             case 2:
                 soundEffect = SKAction.playSoundFileNamed("alien.wav", waitForCompletion: false)
             default:
@@ -261,7 +261,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 case 0:
                     soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
                 case 1:
-                    soundEffect = SKAction.playSoundFileNamed("bubble.mp3", waitForCompletion: false)
+                    soundEffect = SKAction.playSoundFileNamed("bubble.wav", waitForCompletion: false)
                 case 2:
                     soundEffect = SKAction.playSoundFileNamed("alien.wav", waitForCompletion: false)
                 default:
@@ -597,7 +597,10 @@ extension GameScene: SKPhysicsContactDelegate{
     func gameOver(){
         let myString = String(score) // This String is you high score as a String
         let defaults = UserDefaults.standard
-       
+        
+        soundEffect = SKAction.playSoundFileNamed("gameover.wav", waitForCompletion: false)
+        self.run(soundEffect)
+        
         defaults.set(myString, forKey : "Last_Score")
         
         //print(highScore)

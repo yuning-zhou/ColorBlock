@@ -22,6 +22,7 @@ class GameScene: SKScene {
     var difficulty: Int!
     var difficultyFactor : Double!
     var theme: Int!
+    var soundEffect: SKAction! = nil
   
     enum colorSchemes{
         static let special = [
@@ -233,6 +234,12 @@ extension GameScene: SKPhysicsContactDelegate{
         
         if (test < block.size.width/3){
             
+            // hit bottom
+            // process sound
+            soundEffect = SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false)
+            block.run(soundEffect)
+            
+            // process physicsbody
             block.physicsBody?.pinned = true
             block.physicsBody?.allowsRotation = false
             matrix[column - 1].append(block)
@@ -287,6 +294,8 @@ extension GameScene: SKPhysicsContactDelegate{
                 matrix[column - 1].removeAll()
                 score += 1
             }
+            soundEffect = SKAction.playSoundFileNamed("rainbow.flac", waitForCompletion: false)
+            self.run(soundEffect)
             return true
         } else {
             if (current.count >= 3){
@@ -308,6 +317,8 @@ extension GameScene: SKPhysicsContactDelegate{
                     matrix[column - 1].remove(at: matrix[column - 1].count - 1)
                     
                     score += 3
+                    soundEffect = SKAction.playSoundFileNamed("cancel.flac", waitForCompletion: false)
+                    self.run(soundEffect)
                     return true
                 } else {
                     return false
@@ -342,6 +353,8 @@ extension GameScene: SKPhysicsContactDelegate{
                     }
                 }
             }
+            soundEffect = SKAction.playSoundFileNamed("rainbow.flac", waitForCompletion: false)
+            self.run(soundEffect)
             freezeTime = 1.0 - Double(difficulty) * 0.4
         } else {
             // check if all columns are filled
@@ -418,6 +431,8 @@ extension GameScene: SKPhysicsContactDelegate{
                                }
                            }
                         score += 6
+                        soundEffect = SKAction.playSoundFileNamed("cancel.flac", waitForCompletion: false)
+                        self.run(soundEffect)
                         freezeTime = 1.0 - Double(difficulty) * 0.4
                            
                        }
@@ -544,6 +559,8 @@ extension GameScene: SKPhysicsContactDelegate{
             }
         
         }
+        soundEffect = SKAction.playSoundFileNamed("boom.wav", waitForCompletion: false)
+        self.run(soundEffect)
     }
     
     // jump to pop up view controller, code snipet from https://riptutorial.com/sprite-kit/example/29867/multiple-uiviewcontroller-in-a-game--how-to-jump-from-the-scene-to-a-viewcontroller

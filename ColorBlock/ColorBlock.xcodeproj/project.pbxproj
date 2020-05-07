@@ -23,6 +23,11 @@
 		133C5BD724632CE8008E4D2D /* DifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */; };
 		133C5BD9246358CE008E4D2D /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BD8246358CE008E4D2D /* ColorViewController.swift */; };
 		133C5BDB24638178008E4D2D /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BDA24638178008E4D2D /* PauseViewController.swift */; };
+		133C5BDD24638831008E4D2D /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C5BDC24638831008E4D2D /* SoundViewController.swift */; };
+		133C5BDF24638E85008E4D2D /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BDE24638E85008E4D2D /* hit.wav */; };
+		133C5BE124639096008E4D2D /* cancel.flac in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE024639096008E4D2D /* cancel.flac */; };
+		133C5BE3246391A8008E4D2D /* rainbow.flac in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE2246391A8008E4D2D /* rainbow.flac */; };
+		133C5BE72463A082008E4D2D /* boom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BE62463A082008E4D2D /* boom.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +70,11 @@
 		133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DifficultyViewController.swift; path = ColorBlock/Assets/DifficultyViewController.swift; sourceTree = SOURCE_ROOT; };
 		133C5BD8246358CE008E4D2D /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorViewController.swift; path = ColorBlock/App/ColorViewController.swift; sourceTree = SOURCE_ROOT; };
 		133C5BDA24638178008E4D2D /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PauseViewController.swift; path = ColorBlock/App/PauseViewController.swift; sourceTree = SOURCE_ROOT; };
+		133C5BDC24638831008E4D2D /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = ColorBlock/App/SoundViewController.swift; sourceTree = SOURCE_ROOT; };
+		133C5BDE24638E85008E4D2D /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
+		133C5BE024639096008E4D2D /* cancel.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = cancel.flac; sourceTree = "<group>"; };
+		133C5BE2246391A8008E4D2D /* rainbow.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = rainbow.flac; sourceTree = "<group>"; };
+		133C5BE62463A082008E4D2D /* boom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boom.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +154,7 @@
 		133C5BCF245F86A8008E4D2D /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				133C5BDC24638831008E4D2D /* SoundViewController.swift */,
 				133C5BDA24638178008E4D2D /* PauseViewController.swift */,
 				133C5BD8246358CE008E4D2D /* ColorViewController.swift */,
 				133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */,
@@ -161,6 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				133C5B5D245F7BE1008E4D2D /* Main.storyboard */,
+				133C5BE2246391A8008E4D2D /* rainbow.flac */,
+				133C5BE62463A082008E4D2D /* boom.wav */,
+				133C5BE024639096008E4D2D /* cancel.flac */,
+				133C5BDE24638E85008E4D2D /* hit.wav */,
 				133C5B60245F7BE4008E4D2D /* Assets.xcassets */,
 				133C5B62245F7BE4008E4D2D /* LaunchScreen.storyboard */,
 			);
@@ -280,7 +295,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				133C5BDF24638E85008E4D2D /* hit.wav in Resources */,
 				133C5B5F245F7BE1008E4D2D /* Main.storyboard in Resources */,
+				133C5BE72463A082008E4D2D /* boom.wav in Resources */,
+				133C5BE3246391A8008E4D2D /* rainbow.flac in Resources */,
+				133C5BE124639096008E4D2D /* cancel.flac in Resources */,
 				133C5B61245F7BE4008E4D2D /* Assets.xcassets in Resources */,
 				133C5B64245F7BE4008E4D2D /* LaunchScreen.storyboard in Resources */,
 			);
@@ -311,6 +330,7 @@
 				133C5B5A245F7BE1008E4D2D /* GameScene.swift in Sources */,
 				133C5B5C245F7BE1008E4D2D /* GameViewController.swift in Sources */,
 				133C5B8A245F7FA2008E4D2D /* ScoreViewController.swift in Sources */,
+				133C5BDD24638831008E4D2D /* SoundViewController.swift in Sources */,
 				133C5B54245F7BE1008E4D2D /* AppDelegate.swift in Sources */,
 				133C5BD724632CE8008E4D2D /* DifficultyViewController.swift in Sources */,
 				133C5B8E245F7FC2008E4D2D /* AchievementsViewController.swift in Sources */,

@@ -161,9 +161,9 @@
 				133C5BD8246358CE008E4D2D /* ColorViewController.swift */,
 				133C5BD624632CE8008E4D2D /* DifficultyViewController.swift */,
 				133C5BD42460D0AF008E4D2D /* PopUpViewController.swift */,
-				133C5BCD245F854B008E4D2D /* MainViewController.swift */,
 				133C5B5B245F7BE1008E4D2D /* GameViewController.swift */,
 				133C5B89245F7FA2008E4D2D /* ScoreViewController.swift */,
+				133C5BCD245F854B008E4D2D /* MainViewController.swift */,
 				133C5B8B245F7FB2008E4D2D /* SettingsViewController.swift */,
 				133C5B8D245F7FC2008E4D2D /* AchievementsViewController.swift */,
 			);

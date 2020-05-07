@@ -318,6 +318,7 @@
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelPressed:" destination="cbt-qu-OWC" eventType="touchUpInside" id="ATd-8i-8Aq"/>
+                                    <action selector="cancelPressed:" destination="NH9-nl-L0I" eventType="touchUpInside" id="kZ8-aM-4dm"/>
                                     <action selector="cancelPressed:" destination="kQe-IY-rCC" eventType="touchUpInside" id="sEm-WS-fGP"/>
                                     <segue destination="Z9g-q9-74m" kind="unwind" unwindAction="unwindToSettingsViewControllerWithSegue:" id="zRQ-8A-FFb"/>
                                 </connections>
@@ -330,34 +331,46 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Default" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNn-Ak-vxP">
-                                <rect key="frame" x="79" y="306" width="256" height="65"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="default" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bpz-pW-vYU">
+                                <rect key="frame" x="79" y="305" width="256" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.69065280129999995" green="1" blue="0.30527043390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bubble" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssv-Bw-fRG">
-                                <rect key="frame" x="79" y="389" width="256" height="65"/>
+                                <accessibility key="accessibilityConfiguration" label="0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Default"/>
+                                <connections>
+                                    <action selector="colorChangedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="MSY-pb-qdQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="bubble" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pB-bZ-em7">
+                                <rect key="frame" x="78" y="390" width="256" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.69065280129999995" green="1" blue="0.30527043390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Alien" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJo-58-dFK">
-                                <rect key="frame" x="79" y="472" width="256" height="65"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Bubble"/>
+                                <connections>
+                                    <action selector="colorChangedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="IUS-JO-Gql"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="alien" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLT-FW-o7Q">
+                                <rect key="frame" x="79" y="476" width="256" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.69065280129999995" green="1" blue="0.30527043390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Alien"/>
+                                <connections>
+                                    <action selector="colorChangedWithSender:" destination="NH9-nl-L0I" eventType="touchUpInside" id="nKA-EH-UXM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="bYk-Sv-fur"/>
                     </view>
+                    <connections>
+                        <outlet property="alienButton" destination="hLT-FW-o7Q" id="Ik9-5G-pHg"/>
+                        <outlet property="bubbleButton" destination="4pB-bZ-em7" id="rF0-7z-rHI"/>
+                        <outlet property="defaultButton" destination="Bpz-pW-vYU" id="Lue-es-BAS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WpT-6f-esU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Z9g-q9-74m" userLabel="Exit" sceneMemberID="exit"/>

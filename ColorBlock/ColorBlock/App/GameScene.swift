@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  ColorBlock
 //
-//  Created by Zhou Yuning on 5/3/20.
+//  Created by Zhou Yuning.
 //  Copyright © 2020 Zhou Yuning. All rights reserved.
 //
 
@@ -595,7 +595,7 @@ extension GameScene: SKPhysicsContactDelegate{
     
     // jump to pop up view controller, code snipet from https://riptutorial.com/sprite-kit/example/29867/multiple-uiviewcontroller-in-a-game--how-to-jump-from-the-scene-to-a-viewcontroller
     func gameOver(){
-        let myString = String(score) // This String is you high score as a String
+        let myString = String(score)
         let defaults = UserDefaults.standard
         
         soundEffect = SKAction.playSoundFileNamed("gameover.wav", waitForCompletion: false)
@@ -603,7 +603,6 @@ extension GameScene: SKPhysicsContactDelegate{
         
         defaults.set(myString, forKey : "Last_Score")
         
-        //print(highScore)
         if (score - highScore >= 0){
             defaults.set(myString, forKey : "High_Score")
         }
@@ -631,7 +630,6 @@ extension GameScene: SKPhysicsContactDelegate{
     func resumeGame(){
         scene?.view?.isPaused = false
     }
-    
     
 }
 

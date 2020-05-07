@@ -35,7 +35,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Nyb-wI-v8g" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="ONb-nj-gzg"/>
+                                    <segue destination="Nyb-wI-v8g" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="fct-lE-3cB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVS-lH-R24">
@@ -47,7 +47,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Nyb-wI-v8g" kind="unwind" unwindAction="unwindToGameViewControllerWithSegue:" id="lGd-pc-ydC"/>
+                                    <segue destination="Nyb-wI-v8g" kind="unwind" unwindAction="unwindToGameViewControllerWithSegue:sender:" id="Zh4-Sy-Mqc"/>
                                 </connections>
                             </button>
                         </subviews>

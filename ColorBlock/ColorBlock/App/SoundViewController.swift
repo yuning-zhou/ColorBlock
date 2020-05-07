@@ -2,7 +2,7 @@
 //  SoundViewController.swift
 //  ColorBlock
 //
-//  Created by Zhou Yuning on 5/6/20.
+//  Created by Zhou Yuning.
 //  Copyright © 2020 Zhou Yuning. All rights reserved.
 //
 

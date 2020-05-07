@@ -31,6 +31,7 @@
 		133C5BED2463BFEB008E4D2D /* alien.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BEC2463BFEA008E4D2D /* alien.wav */; };
 		133C5BEF2463C2BF008E4D2D /* gameover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BEE2463C2BF008E4D2D /* gameover.wav */; };
 		133C5BF12463C34A008E4D2D /* bubble.wav in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BF02463C34A008E4D2D /* bubble.wav */; };
+		133C5BF32463DD32008E4D2D /* achievement.flac in Resources */ = {isa = PBXBuildFile; fileRef = 133C5BF22463DD32008E4D2D /* achievement.flac */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		133C5BEC2463BFEA008E4D2D /* alien.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien.wav; sourceTree = "<group>"; };
 		133C5BEE2463C2BF008E4D2D /* gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameover.wav; sourceTree = "<group>"; };
 		133C5BF02463C34A008E4D2D /* bubble.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bubble.wav; sourceTree = "<group>"; };
+		133C5BF22463DD32008E4D2D /* achievement.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = achievement.flac; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 		133C5BD0245F86E1008E4D2D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				133C5BF22463DD32008E4D2D /* achievement.flac */,
 				133C5BF02463C34A008E4D2D /* bubble.wav */,
 				133C5BEE2463C2BF008E4D2D /* gameover.wav */,
 				133C5B5D245F7BE1008E4D2D /* Main.storyboard */,
@@ -314,6 +317,7 @@
 				133C5BE124639096008E4D2D /* cancel.flac in Resources */,
 				133C5B61245F7BE4008E4D2D /* Assets.xcassets in Resources */,
 				133C5B64245F7BE4008E4D2D /* LaunchScreen.storyboard in Resources */,
+				133C5BF32463DD32008E4D2D /* achievement.flac in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

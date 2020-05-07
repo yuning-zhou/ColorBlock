@@ -24,6 +24,8 @@ class GameScene: SKScene {
     var theme: Int!
     var soundEffect: SKAction! = nil
     var hitSount: Int!
+    var bombCount: Int!
+    var rainbowCount: Int!
   
     enum colorSchemes{
         static let special = [
@@ -107,6 +109,8 @@ class GameScene: SKScene {
     }
    
     func layoutScene(){
+        bombCount = 0
+        rainbowCount = 0
         backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         freezeTime = 0.5
         
@@ -313,16 +317,19 @@ extension GameScene: SKPhysicsContactDelegate{
         let current = matrix[column - 1]
         
         if (block.name == "boom"){
+            bombCount += 1
             boom()
             return true
         }
         
         if (block.name == "verticalRainbow"){
+            rainbowCount += 1
             // remove entire column
             for x in matrix[column - 1]{
                 x?.removeFromParent()
                 matrix[column - 1].removeAll()
                 score += 1
+                achievement()
             }
             soundEffect = SKAction.playSoundFileNamed("rainbow.flac", waitForCompletion: false)
             self.run(soundEffect)
@@ -347,6 +354,7 @@ extension GameScene: SKPhysicsContactDelegate{
                     matrix[column - 1].remove(at: matrix[column - 1].count - 1)
                     
                     score += 3
+                    achievement()
                     soundEffect = SKAction.playSoundFileNamed("cancel.flac", waitForCompletion: false)
                     self.run(soundEffect)
                     return true
@@ -365,9 +373,11 @@ extension GameScene: SKPhysicsContactDelegate{
         let current = matrix[column - 1]
         let tempCount = matrix[column - 1].count
         if (block.name == "horizontalRainbow") {
+            rainbowCount += 1
             current[current.count - 1]?.removeFromParent()
             matrix[column - 1].remove(at: tempCount - 1)
             score += 1
+            achievement()
             
             for x in (0..<6){
                 // remove all blocks in the same line if not nil
@@ -376,6 +386,7 @@ extension GameScene: SKPhysicsContactDelegate{
                     matrix[x][tempCount - 1]?.removeFromParent()
                     matrix[x].remove(at: tempCount - 1)
                     score += 1
+                    achievement()
                     if (matrix[x].count > 0){
                         for y in matrix[x]{
                             y?.physicsBody?.pinned = false
@@ -461,6 +472,7 @@ extension GameScene: SKPhysicsContactDelegate{
                                }
                            }
                         score += 6
+                        achievement()
                         soundEffect = SKAction.playSoundFileNamed("cancel.flac", waitForCompletion: false)
                         self.run(soundEffect)
                         freezeTime = 1.0 - Double(difficulty) * 0.4
@@ -482,12 +494,14 @@ extension GameScene: SKPhysicsContactDelegate{
         current[current.count - 1]?.removeFromParent()
         matrix[column - 1].remove(at: tempCount - 1)
         score += 1
+        achievement()
         
         // remove bottom
         if (matrix[column - 1].count > 0){
             matrix[column - 1][matrix[column - 1].count - 1]?.removeFromParent()
             matrix[column - 1].remove(at: matrix[column - 1].count - 1)
             score += 1
+            achievement()
         }
         
         // remove left 3 blocks
@@ -501,17 +515,20 @@ extension GameScene: SKPhysicsContactDelegate{
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: matrix[column - 2].count - 1)
                             score += 1
+                            achievement()
                         }
                     case 0:
                         // need to remove bottom-left and left bocks
                         matrix[column - 2][tempCount - 1]?.removeFromParent()
                         matrix[column - 2].remove(at: matrix[column - 2].count - 1)
                         score += 1
+                        achievement()
                         
                         if (tempCount > 1){
                             matrix[column - 2][matrix[column - 2].count - 1]?.removeFromParent()
                             matrix[column - 2].remove(at: matrix[column - 2].count - 1)
                             score += 1
+                            achievement()
                         }
                         
                     default:
@@ -524,12 +541,14 @@ extension GameScene: SKPhysicsContactDelegate{
                         freezeTime = 2.0 - Double(difficulty) * 0.4 / 2
                         
                         score += 2
+                        achievement()
                         
                         if (tempCount > 1){
                             matrix[column - 2][tempCount - 2]?.removeFromParent()
                             matrix[column - 2].remove(at: tempCount - 2)
                             freezeTime = 3.0 - Double(difficulty) * 0.4 / 3
                             score += 1
+                            achievement()
                         }
                 }
                 
@@ -551,17 +570,20 @@ extension GameScene: SKPhysicsContactDelegate{
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: matrix[column].count - 1)
                             score += 1
+                            achievement()
                         }
                     case 0:
                         // need to remove bottom-right and right bocks
                         matrix[column][tempCount - 1]?.removeFromParent()
                         matrix[column].remove(at: matrix[column].count - 1)
                         score += 1
+                        achievement()
                        
                         if (tempCount > 1){
                             matrix[column][matrix[column].count - 1]?.removeFromParent()
                             matrix[column].remove(at: matrix[column].count - 1)
                             score += 1
+                            achievement()
                         }
                         
                     default:
@@ -573,12 +595,14 @@ extension GameScene: SKPhysicsContactDelegate{
                         matrix[column].remove(at: tempCount - 1)
                         freezeTime = 2.0 - Double(difficulty) * 0.4 / 2
                         score += 2
+                        achievement()
                         
                         if (tempCount > 1){
                             matrix[column][tempCount - 2]?.removeFromParent()
                             matrix[column].remove(at: tempCount - 2)
                             freezeTime = 3.0 - Double(difficulty) / 0.4 * 3
                             score += 1
+                            achievement()
                         }
                 }
                 if (matrix[column].count > 0){
@@ -631,6 +655,60 @@ extension GameScene: SKPhysicsContactDelegate{
         scene?.view?.isPaused = false
     }
     
+    func achievement(){
+        // score-based
+        // reach 50 pts
+        let defaults = UserDefaults.standard
+        var set = false
+       
+        if (defaults.string(forKey: "ach1") == nil && highScore >= 50 || score >= 50){
+            defaults.set("1", forKey : "ach1")
+            set = true
+        }
+        
+        // reach 100 pts
+        if (defaults.string(forKey: "ach2") == nil && highScore >= 100 || score >= 100){
+            defaults.set("1", forKey : "ach2")
+            set = true
+        }
+        
+        // reach 200 pts
+        if (defaults.string(forKey: "ach3") == nil && highScore >= 200 || score >= 200){
+            defaults.set("1", forKey : "ach3")
+            set = true
+        }
+        
+        // reach 500 pts
+        if (defaults.string(forKey: "ach4") == nil && highScore >= 500 || score >= 500){
+            defaults.set("1", forKey : "ach4")
+            set = true
+        }
+        
+        // gameplay-based
+        // clear the screen
+        if (defaults.string(forKey: "ach5") == nil && matrix.isEmpty){
+            defaults.set("1", forKey : "ach5")
+            set = true
+        }
+        
+        // used 10 bombs
+        if (defaults.string(forKey: "ach6") == nil && bombCount >= 10){
+            defaults.set("1", forKey : "ach6")
+            set = true
+        }
+        
+        // used 10 rainbows
+        if (defaults.string(forKey: "ach7") == nil && rainbowCount >= 10){
+            defaults.set("1", forKey : "ach7")
+            set = true
+        }
+        
+        // play achievements sound
+        if (set) {
+            soundEffect = SKAction.playSoundFileNamed("achievement.flac", waitForCompletion: false)
+            self.run(soundEffect)
+        }
+    }
 }
 
 

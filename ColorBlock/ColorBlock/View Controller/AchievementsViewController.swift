@@ -2,7 +2,7 @@
 //  AchievementsViewController.swift
 //  ColorBlock
 //
-//  Created by Zhou Yuning on 5/3/20.
+//  Created by Zhou Yuning.
 //  Copyright © 2020 Zhou Yuning. All rights reserved.
 //
 
@@ -10,21 +10,49 @@ import UIKit
 
 class AchievementsViewController: UIViewController {
 
+    @IBOutlet weak var ach1: UIButton!
+    @IBOutlet weak var ach2: UIButton!
+    @IBOutlet weak var ach3: UIButton!
+    @IBOutlet weak var ach4: UIButton!
+    @IBOutlet weak var ach5: UIButton!
+    @IBOutlet weak var ach6: UIButton!
+    @IBOutlet weak var ach7: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let defaults = UserDefaults.standard
+         
+        
+        if (defaults.string(forKey: "ach1") != nil){
+            ach1.backgroundColor = .green
+        }
+        
+        if (defaults.string(forKey: "ach2") != nil){
+            ach2.backgroundColor = .green
+        }
+        
+        if (defaults.string(forKey: "ach3") != nil){
+            ach3.backgroundColor = .green
+        }
+        
+        if (defaults.string(forKey: "ach4") != nil){
+            ach4.backgroundColor = .green
+        }
+        
+        if (defaults.string(forKey: "ach5") != nil){
+            ach5.backgroundColor = .green
+        }
+        
+        if (defaults.string(forKey: "ach6") != nil){
+            ach6.backgroundColor = .green
+        }
+        
+        if (defaults.string(forKey: "ach7") != nil){
+            ach7.backgroundColor = .green
+        }
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

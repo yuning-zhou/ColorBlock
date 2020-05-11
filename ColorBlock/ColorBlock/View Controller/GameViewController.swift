@@ -17,7 +17,7 @@ class GameViewController: UIViewController, TransitionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         GameViewController.instance = self
         
         if let view = self.view as! SKView? {
@@ -25,6 +25,8 @@ class GameViewController: UIViewController, TransitionDelegate {
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
             scene.delegate = self as TransitionDelegate
+            
+            
             // Present the scene
             view.presentScene(scene)
             gameScene = scene

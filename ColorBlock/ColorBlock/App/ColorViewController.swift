@@ -50,11 +50,11 @@ class ColorViewController: UIViewController {
         colorSwitch.selectedSegmentIndex = color
         switch colorSwitch.selectedSegmentIndex {
         case 0:
-            colorView.backgroundColor = UIColor.init(red: 236/255, green: 236/255, blue: 236/255, alpha: 1.0)
+            colorView.backgroundColor = UIColor(patternImage: UIImage(named: "theme1")!)
         case 1:
-            colorView.backgroundColor = .green
+            colorView.backgroundColor = UIColor(patternImage: UIImage(named: "theme2")!)
         case 2:
-            colorView.backgroundColor = .blue
+            colorView.backgroundColor = UIColor(patternImage: UIImage(named: "theme3")!)
         default:
             break
         }
@@ -64,13 +64,13 @@ class ColorViewController: UIViewController {
         switch colorSwitch.selectedSegmentIndex
         {
         case 0:
-            colorView.backgroundColor = UIColor.init(red: 236/255, green: 236/255, blue: 236/255, alpha: 1.0)
+            colorView.backgroundColor = UIColor(patternImage: UIImage(named: "theme1")!)
             initialValue = 0
         case 1:
-            colorView.backgroundColor = .green
+            colorView.backgroundColor = UIColor(patternImage: UIImage(named: "theme2")!)
             initialValue = 1
         case 2:
-            colorView.backgroundColor = .blue
+            colorView.backgroundColor = UIColor(patternImage: UIImage(named: "theme3")!)
             initialValue = 2
         default:
             break

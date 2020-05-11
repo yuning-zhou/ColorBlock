@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:boom.wav">
+      location = "group:/Users/Blues/Desktop/ColorBlock/ColorBlock/ColorBlock/Assets/background.jpg">
    </FileRef>
    <FileRef
       location = "self:">

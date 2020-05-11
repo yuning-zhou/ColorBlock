@@ -33,30 +33,30 @@ class GameScene: SKScene {
         ]
         
         static let theme1 = [
-            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 0.8),
-            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 0.8),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 0.8),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 0.8),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 0.8),
+            UIColor(red: 240/255, green: 196/255, blue: 65/255, alpha: 0.8),
+            UIColor(red: 255/255, green: 87/255, blue: 51/255, alpha: 0.8),
+            UIColor(red: 65/255, green: 108/255, blue: 235/255, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8),
             UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
         ]
         
         static let theme2 = [
-            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
-            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            UIColor(red: 51/255, green: 255/255, blue: 189/255, alpha: 0.8),
+            UIColor(red: 51/255, green: 219/255, blue: 255/255, alpha: 0.8),
+            UIColor(red: 255/255, green: 87/255, blue: 51/255, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
         ]
         
         static let theme3 = [
-            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
-            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            UIColor(red: 87/255, green: 51/255, blue: 255/255, alpha: 0.8),
+            UIColor(red: 189/255, green: 51/255, blue: 255/255, alpha: 0.8),
+            UIColor(red: 255/255, green: 240/255, blue: 51/255, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
         ]
     }
     
@@ -116,9 +116,9 @@ class GameScene: SKScene {
         lastScore = SKLabelNode(fontNamed: "Chalkduster")
         lastScore.text = "Score: \(score)"
         lastScore.horizontalAlignmentMode = .right
-        lastScore.position = CGPoint(x: frame.width, y: frame.height - 70)
+        lastScore.position = CGPoint(x: frame.width - 20, y: frame.height - 70)
         lastScore.zPosition = 0
-        lastScore.fontSize = 40
+        lastScore.fontSize = 35
         lastScore.fontColor = UIColor.black
         addChild(lastScore)
         
@@ -134,12 +134,12 @@ class GameScene: SKScene {
         } else {
             theme = 0
         }
-        if (0 == theme) {
-            backgroundColor = UIColor.init(red: 236/255, green: 236/255, blue: 236/255, alpha: 1.0)
-        } else if (1 == theme) {
-            backgroundColor = .green
-        } else if (2 == theme) {
-            backgroundColor = .blue
+        if (theme == 0) {
+            backgroundColor = UIColor.init(red: 169/255, green: 253/255, blue: 216/255, alpha: 1.0)
+        } else if (theme == 1) {
+            backgroundColor = UIColor(red: 254/255, green: 241/255, blue: 210/255, alpha: 1.0)
+        } else if (theme == 2) {
+            backgroundColor = UIColor(red: 215/255, green: 248/255, blue: 255/255, alpha: 1.0)
         } else {
             backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         }
@@ -357,7 +357,6 @@ extension GameScene: SKPhysicsContactDelegate{
                 } else {
                     return false
                 }
-                
             } else {
                 return false
             }
@@ -682,7 +681,7 @@ extension GameScene: SKPhysicsContactDelegate{
         
         // gameplay-based
         // clear the screen
-        if (defaults.string(forKey: "ach5") == nil && matrix.isEmpty){
+        if (defaults.string(forKey: "ach5") == nil && matrix[0].isEmpty && matrix[1].isEmpty && matrix[2].isEmpty && matrix[3].isEmpty && matrix[4].isEmpty && matrix[5].isEmpty){
             defaults.set("1", forKey : "ach5")
             set = true
         }

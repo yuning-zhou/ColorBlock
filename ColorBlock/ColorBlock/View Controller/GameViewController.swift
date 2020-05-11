@@ -17,28 +17,27 @@ class GameViewController: UIViewController, TransitionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         GameViewController.instance = self
         
         if let view = self.view as! SKView? {
             let scene = GameScene(size: view.bounds.size)
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                scene.delegate = self as TransitionDelegate
-                // Present the scene
-                view.presentScene(scene)
-                gameScene = scene
-            
+            // Set the scale mode to scale to fit the window
+            scene.scaleMode = .aspectFill
+            scene.delegate = self as TransitionDelegate
+            // Present the scene
+            view.presentScene(scene)
+            gameScene = scene
+        
             view.ignoresSiblingOrder = true
-            
+        
             view.showsFPS = true
             view.showsNodeCount = true
-            
         }
     }
     
     @IBAction func unwindToGameViewController(segue: UIStoryboardSegue){
         gameScene.resumeGame()
-        
     }
     
     func goToPopUpView(){

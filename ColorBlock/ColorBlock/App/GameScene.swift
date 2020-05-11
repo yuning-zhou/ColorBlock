@@ -33,12 +33,12 @@ class GameScene: SKScene {
         ]
         
         static let theme1 = [
-            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1.0),
-            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0),
-            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 0.8),
+            UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 0.8),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 0.8),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 0.8),
+            UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 0.8),
+            UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
         ]
         
         static let theme2 = [
@@ -107,11 +107,10 @@ class GameScene: SKScene {
         
         physicsWorld.contactDelegate = self
     }
-   
+    
     func layoutScene(){
         bombCount = 0
         rainbowCount = 0
-        backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         freezeTime = 0.5
         
         lastScore = SKLabelNode(fontNamed: "Chalkduster")
@@ -134,6 +133,15 @@ class GameScene: SKScene {
             theme = Int(defaults.string(forKey: "theme")!)
         } else {
             theme = 0
+        }
+        if (0 == theme) {
+            backgroundColor = UIColor.init(red: 236/255, green: 236/255, blue: 236/255, alpha: 1.0)
+        } else if (1 == theme) {
+            backgroundColor = .green
+        } else if (2 == theme) {
+            backgroundColor = .blue
+        } else {
+            backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         }
         
         if (defaults.string(forKey: "sound") != nil){
@@ -194,17 +202,13 @@ class GameScene: SKScene {
                 default:
                     break
             }
-            
-            
         }
         
-        
-        block.colorBlendFactor = 1.0
+        // block.colorBlendFactor = 1.0
+        block.colorBlendFactor = 0.8
         let storeInfo = NSMutableDictionary()
         storeInfo["color"] = blockColor % 3
         block.userData = storeInfo
-        
-        
         
         // randomize x-position of spawn
         let index = Int.random(in: 0 ..< 6)
@@ -212,21 +216,14 @@ class GameScene: SKScene {
         let top = frame.maxY - block.size.width*2
         let xValue = frame.minX + CGFloat(Double(index) + 0.8) * block.size.width
         
-        
         block.position = CGPoint(x: xValue, y: top)
         block.physicsBody = SKPhysicsBody(circleOfRadius: block.size.width/2)
-        
-     
         block.physicsBody?.friction = 0.0
         block.physicsBody?.restitution = 0.0
-    
-        
         
         let edgeFrame = CGRect(origin: CGPoint(x: frame.minX, y: frame.minY), size: CGSize(width: (self.view?.frame.width)!, height: (self.view?.frame.height)!))
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: edgeFrame)
         self.physicsBody?.restitution = 0.0
-        
-        
         
         let blockCategory:UInt32 = 0x1
         let frameCategory:UInt32 = 0x1 << 1
@@ -236,9 +233,9 @@ class GameScene: SKScene {
         block.physicsBody?.contactTestBitMask = blockCategory | frameCategory
         block.physicsBody?.collisionBitMask = blockCategory | frameCategory
     
-        let xRange = SKRange(lowerLimit:0,upperLimit:size.width)
-        let yRange = SKRange(lowerLimit:-20,upperLimit:size.height)
-        block.constraints = [SKConstraint.positionX(xRange,y:yRange)]
+        let xRange = SKRange(lowerLimit:0, upperLimit:size.width)
+        let yRange = SKRange(lowerLimit:-20, upperLimit:size.height)
+        block.constraints = [SKConstraint.positionX(xRange, y:yRange)]
         
         addChild(block)
     }
@@ -249,7 +246,6 @@ extension GameScene: SKPhysicsContactDelegate{
     func didBegin(_ contact: SKPhysicsContact) {
         // bottom || on top of other blocks
         
-    
         let blockBottom = CGPoint(x: block.frame.origin.x + block.frame.width/2, y: block.frame.origin.y)
         
         let xDist = (contact.contactPoint.x - blockBottom.x)

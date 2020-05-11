@@ -17,12 +17,18 @@ class AchievementsViewController: UIViewController {
     @IBOutlet weak var ach5: UIButton!
     @IBOutlet weak var ach6: UIButton!
     @IBOutlet weak var ach7: UIButton!
+    @IBOutlet weak var achiButton: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let bezierPath1 = UIBezierPath(roundedRect: achiButton.bounds, byRoundingCorners: [.allCorners], cornerRadii: CGSize(width: 20, height: 20))
+        let maskLayer1 = CAShapeLayer()
+        maskLayer1.path = bezierPath1.cgPath
+        achiButton.layer.mask = maskLayer1;
+
+
         let defaults = UserDefaults.standard
-         
         
         if (defaults.string(forKey: "ach1") != nil){
             ach1.backgroundColor = .green

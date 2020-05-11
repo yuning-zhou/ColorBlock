@@ -15,6 +15,8 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        ScoreLabel.textColor = UIColor.init(red: 118/255, green: 161/255, blue: 187/255, alpha: 1.0)
+        LastLabel.textColor = UIColor.init(red: 118/255, green: 161/255, blue: 187/255, alpha: 1.0)
         
         let defaults = UserDefaults.standard
 

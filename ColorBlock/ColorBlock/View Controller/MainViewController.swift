@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         let bezierPath1 = UIBezierPath(roundedRect: scoreButton.bounds, byRoundingCorners: [.allCorners], cornerRadii: CGSize(width: 20, height: 20))
         let maskLayer1 = CAShapeLayer()
         maskLayer1.path = bezierPath1.cgPath

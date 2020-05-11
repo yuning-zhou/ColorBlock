@@ -15,8 +15,10 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ScoreLabel.textColor = UIColor.init(red: 118/255, green: 161/255, blue: 187/255, alpha: 1.0)
-        LastLabel.textColor = UIColor.init(red: 118/255, green: 161/255, blue: 187/255, alpha: 1.0)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
+        
+        ScoreLabel.textColor = .white
+        LastLabel.textColor = .white
         
         let defaults = UserDefaults.standard
 
@@ -39,16 +41,5 @@ class ScoreViewController: UIViewController {
         }
         
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -20,7 +20,10 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.        
+        // Do any additional setup after loading the view.
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.jpg")!)
+        
         let bezierPath1 = UIBezierPath(roundedRect: difficultyButton.bounds, byRoundingCorners: [.allCorners], cornerRadii: CGSize(width: 30, height: 30))
         let maskLayer1 = CAShapeLayer()
         maskLayer1.path = bezierPath1.cgPath

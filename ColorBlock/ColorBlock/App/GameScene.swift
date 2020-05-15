@@ -26,7 +26,9 @@ class GameScene: SKScene {
     var hitSount: Int!
     var bombCount: Int!
     var rainbowCount: Int!
-  
+    var testMode: Bool!
+    
+    
     enum colorSchemes{
         static let special = [
             UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -90,6 +92,7 @@ class GameScene: SKScene {
     }
     
     func setPhysics(){
+        testMode = true
         let defaults = UserDefaults.standard
         if (defaults.string(forKey: "difficulty") != nil){
             difficulty = Int(defaults.string(forKey: "difficulty")!)
@@ -173,9 +176,9 @@ class GameScene: SKScene {
         
         if (difficulty > 0) {
             // difficult mode
-            blockColor = Int.random(in: 0 ..< 20)
+            blockColor = Int.random(in: 0 ..< 40)
         } else {
-            blockColor = Int.random(in: 0 ..< 10)
+            blockColor = Int.random(in: 0 ..< 20)
         }
         
         if blockColor == 3 {
@@ -255,6 +258,7 @@ extension GameScene: SKPhysicsContactDelegate{
             
             // hit bottom
             // process sound
+            
             switch hitSount
             {
                 case 0:
@@ -298,10 +302,20 @@ extension GameScene: SKPhysicsContactDelegate{
             
             // call the next block
             // test if game is over
-            if (matrix[column - 1].count >= 5){
-                gameOver()
+            if testMode {
+                // test mode
+                if (matrix[column - 1].count >= 5){
+                    gameOver()
+                } else {
+                    self.spawnBlocks()
+                }
             } else {
-                self.spawnBlocks()
+                // production mode
+                if (matrix[column - 1].count >= 13){
+                    gameOver()
+                } else {
+                    self.spawnBlocks()
+                }
             }
            
         }

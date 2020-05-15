@@ -270,7 +270,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 default:
                     break
             }
-            self.run(soundEffect)
+            block.run(soundEffect)
             
             // process physicsbody
             block.physicsBody?.pinned = true

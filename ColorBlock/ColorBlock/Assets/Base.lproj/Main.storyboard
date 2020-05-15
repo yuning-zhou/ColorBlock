@@ -964,7 +964,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63q-V8-C3v">
-                                <rect key="frame" x="81" y="360" width="251" height="54"/>
+                                <rect key="frame" x="81.5" y="360" width="251" height="54"/>
                                 <color key="backgroundColor" red="0.63137254899999995" green="0.83529411760000005" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="CQo-8e-gP2"/>
@@ -979,7 +979,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqg-sh-LGx">
-                                <rect key="frame" x="81" y="446" width="251" height="54"/>
+                                <rect key="frame" x="81.5" y="446" width="251" height="54"/>
                                 <color key="backgroundColor" red="0.63137254899999995" green="0.83529411760000005" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="BNX-t6-XWG"/>
@@ -994,7 +994,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRL-yj-EZT">
-                                <rect key="frame" x="81" y="530" width="251" height="54"/>
+                                <rect key="frame" x="81.5" y="530" width="251" height="54"/>
                                 <color key="backgroundColor" red="0.63137254899999995" green="0.83529411760000005" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="cdg-BB-bcb"/>
@@ -1009,7 +1009,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSR-UH-qC4">
-                                <rect key="frame" x="81" y="617" width="251" height="54"/>
+                                <rect key="frame" x="81.5" y="617" width="251" height="54"/>
                                 <color key="backgroundColor" red="0.63137254899999995" green="0.83529411760000005" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="aVx-Xj-7Mw"/>
@@ -1034,15 +1034,22 @@
                                 <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="colorBlock" translatesAutoresizingMaskIntoConstraints="NO" id="SMH-bz-c7o">
-                                <rect key="frame" x="0.0" y="129" width="414" height="191"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color Block" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayg-Qb-9L1">
+                                <rect key="frame" x="43.5" y="142" width="327" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="327" id="OHD-8e-rNm"/>
+                                    <constraint firstAttribute="height" constant="162" id="dzl-aB-oQd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="79"/>
+                                <color key="textColor" red="0.0" green="0.55214732889999996" blue="0.80573636289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.85967963228178812" blue="0.88272276290523555" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lSR-UH-qC4" firstAttribute="top" secondItem="YRL-yj-EZT" secondAttribute="bottom" constant="33" id="4pT-rl-W2u"/>
                             <constraint firstItem="63q-V8-C3v" firstAttribute="centerX" secondItem="uo5-2m-EGe" secondAttribute="centerX" id="FPt-Qk-Mc7"/>
+                            <constraint firstItem="ayg-Qb-9L1" firstAttribute="centerX" secondItem="uo5-2m-EGe" secondAttribute="centerX" id="Ja1-gr-UdL"/>
                             <constraint firstItem="63q-V8-C3v" firstAttribute="top" secondItem="MPh-H0-VRV" secondAttribute="bottom" constant="75" id="OI4-de-dD8"/>
                             <constraint firstItem="rqg-sh-LGx" firstAttribute="centerX" secondItem="uo5-2m-EGe" secondAttribute="centerX" id="Q9a-hK-bnv"/>
                             <constraint firstItem="MPh-H0-VRV" firstAttribute="centerX" secondItem="uo5-2m-EGe" secondAttribute="centerX" id="RXK-6F-A5n"/>
@@ -1050,6 +1057,7 @@
                             <constraint firstItem="MPh-H0-VRV" firstAttribute="top" secondItem="uo5-2m-EGe" secondAttribute="top" constant="118" id="V1d-dd-wFK"/>
                             <constraint firstItem="lSR-UH-qC4" firstAttribute="centerX" secondItem="uo5-2m-EGe" secondAttribute="centerX" id="Ztr-As-oXq"/>
                             <constraint firstItem="YRL-yj-EZT" firstAttribute="top" secondItem="rqg-sh-LGx" secondAttribute="bottom" constant="30" id="nLe-cb-fxB"/>
+                            <constraint firstItem="ayg-Qb-9L1" firstAttribute="top" secondItem="uo5-2m-EGe" secondAttribute="top" constant="98" id="pl5-M7-gr0"/>
                             <constraint firstItem="rqg-sh-LGx" firstAttribute="top" secondItem="63q-V8-C3v" secondAttribute="bottom" constant="32" id="rQl-t7-nba"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uo5-2m-EGe"/>
@@ -1066,7 +1074,4 @@
             <point key="canvasLocation" x="-243.47826086956525" y="23.4375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="colorBlock" width="275" height="107"/>
-    </resources>
 </document>

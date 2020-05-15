@@ -204,7 +204,6 @@ class GameScene: SKScene {
             }
         }
         
-        // block.colorBlendFactor = 1.0
         block.colorBlendFactor = 0.8
         let storeInfo = NSMutableDictionary()
         storeInfo["color"] = blockColor % 3

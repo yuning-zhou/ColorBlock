@@ -32,7 +32,6 @@ class ScoreViewController: UIViewController {
         }
         
         let LastScore = defaults.string(forKey: "Last_Score")
-        // Do any additional setup after loading the view.
         
         if (LastScore == nil){
             LastLabel.text = "Last Score: 0"

@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+// protocol for scene transition
 protocol TransitionDelegate: SKSceneDelegate {
     func goToPopUpView()
 }
@@ -28,7 +29,7 @@ class GameScene: SKScene {
     var rainbowCount: Int!
     var testMode: Bool!
     
-    
+    // color themes
     enum colorSchemes{
         static let special = [
             UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -66,6 +67,7 @@ class GameScene: SKScene {
         setPhysics()
         layoutScene()
         
+        // set swiping action
         let swipeLeft : UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(GameScene.swipeLeft))
         swipeLeft.direction = .left
         view.addGestureRecognizer(swipeLeft)
@@ -92,7 +94,9 @@ class GameScene: SKScene {
     }
     
     func setPhysics(){
-        testMode = true
+        testMode = true // turn this to off for production
+        
+        // change game speed according to difficulty
         let defaults = UserDefaults.standard
         if (defaults.string(forKey: "difficulty") != nil){
             difficulty = Int(defaults.string(forKey: "difficulty")!)
@@ -116,6 +120,7 @@ class GameScene: SKScene {
         rainbowCount = 0
         freezeTime = 0.5
         
+        // set score label
         lastScore = SKLabelNode(fontNamed: "Chalkduster")
         lastScore.text = "Score: \(score)"
         lastScore.horizontalAlignmentMode = .right
@@ -132,6 +137,7 @@ class GameScene: SKScene {
             highScore = 0
         }
         
+        // set background color
         if (defaults.string(forKey: "theme") != nil){
             theme = Int(defaults.string(forKey: "theme")!)
         } else {
@@ -147,12 +153,12 @@ class GameScene: SKScene {
             backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 189/255, alpha: 1.0)
         }
         
+        // prepare sound
         if (defaults.string(forKey: "sound") != nil){
             hitSount = Int(defaults.string(forKey: "sound")!)
         } else {
             hitSount = 0
         }
-        
         switch hitSount
         {
             case 0:
@@ -181,6 +187,7 @@ class GameScene: SKScene {
             blockColor = Int.random(in: 0 ..< 20)
         }
         
+        // color the blocks
         if blockColor == 3 {
             block = SKSpriteNode(texture: SKTexture(imageNamed: "vRainbow"), color: colorSchemes.special[0], size:CGSize(width: self.frame.size.width/factor, height: self.frame.size.width/factor))
             block.name = "verticalRainbow"
@@ -217,8 +224,9 @@ class GameScene: SKScene {
         column = index + 1
         let top = frame.maxY - block.size.width*2
         let xValue = frame.minX + CGFloat(Double(index) + 0.8) * block.size.width
-        
         block.position = CGPoint(x: xValue, y: top)
+        
+        // set physicsBody attributes
         block.physicsBody = SKPhysicsBody(circleOfRadius: block.size.width/2)
         block.physicsBody?.friction = 0.0
         block.physicsBody?.restitution = 0.0
@@ -258,7 +266,6 @@ extension GameScene: SKPhysicsContactDelegate{
             
             // hit bottom
             // process sound
-            
             switch hitSount
             {
                 case 0:
@@ -286,8 +293,7 @@ extension GameScene: SKPhysicsContactDelegate{
                 checkHorizontal()
             }
             
-            
-            
+            // unpin blocks and re-pin after timer
             if (freezeTime > 0.5){
                 DispatchQueue.main.asyncAfter(deadline: .now() + freezeTime) {
                     // pin all blocks
@@ -325,6 +331,7 @@ extension GameScene: SKPhysicsContactDelegate{
     func checkVertical() -> Bool{
         let current = matrix[column - 1]
         
+        // bomb block
         if (block.name == "boom"){
             bombCount += 1
             boom()
@@ -430,15 +437,17 @@ extension GameScene: SKPhysicsContactDelegate{
                        
                        
                        if (condition){
+                            // same color
                            // remove blocks
                            matrix[0][tempCount - 1]?.removeFromParent()
                            matrix[0].remove(at: tempCount - 1)
+                        
+                            // drop blocks for each column
                            if (matrix[0].count > 0){
                                for x in matrix[0]{
                                    x?.physicsBody?.pinned = false
                                }
                            }
-                           
                            
                            matrix[1][tempCount - 1]?.removeFromParent()
                            matrix[1].remove(at: tempCount - 1)
@@ -625,7 +634,6 @@ extension GameScene: SKPhysicsContactDelegate{
         self.run(soundEffect)
     }
     
-    // jump to pop up view controller, code snipet from https://riptutorial.com/sprite-kit/example/29867/multiple-uiviewcontroller-in-a-game--how-to-jump-from-the-scene-to-a-viewcontroller
     func gameOver(){
         let myString = String(score)
         let defaults = UserDefaults.standard
@@ -639,6 +647,7 @@ extension GameScene: SKPhysicsContactDelegate{
             defaults.set(myString, forKey : "High_Score")
         }
         
+        // jump to pop up view controller, code snipet from https://riptutorial.com/sprite-kit/example/29867/multiple-uiviewcontroller-in-a-game--how-to-jump-from-the-scene-to-a-viewcontroller
         self.run(SKAction.wait(forDuration: 1),completion:{[unowned self] in
             guard let delegate = self.delegate else { return }
             self.view?.presentScene(nil)

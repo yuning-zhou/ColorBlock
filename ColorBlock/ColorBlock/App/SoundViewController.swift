@@ -82,7 +82,6 @@ class SoundViewController: UIViewController {
                 break
         }
         
-        // selected.backgroundColor = .red
         selected.backgroundColor = UIColor.init(red: 118/255, green: 161/255, blue: 187/255, alpha: 1.0)
         
         
@@ -92,7 +91,6 @@ class SoundViewController: UIViewController {
     @IBAction func buttonPressed(sender: UIButton) {
         
         let defaults = UserDefaults.standard
-        // selected.backgroundColor = .green
         selected.backgroundColor = UIColor.init(red: 242/255, green: 250/255, blue: 255/255, alpha: 1)
         sender.backgroundColor = UIColor.init(red: 118/255, green: 161/255, blue: 187/255, alpha: 1.0)
         
@@ -101,15 +99,12 @@ class SoundViewController: UIViewController {
         case "Default":
             url = Bundle.main.url(forResource: "hit", withExtension: "wav")
             defaults.set(String(0), forKey : "sound")
-            //sender.backgroundColor = .red
         case "Bubble":
             url = Bundle.main.url(forResource: "bubble", withExtension: "wav")
             defaults.set(String(1), forKey : "sound")
-            //sender.backgroundColor = .red
         case "Alien":
             url = Bundle.main.url(forResource: "alien", withExtension: "wav")
             defaults.set(String(2), forKey : "sound")
-            //sender.backgroundColor = .red
         default:
             break
         }
